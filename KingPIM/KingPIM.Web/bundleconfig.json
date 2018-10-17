@@ -1,0 +1,9 @@
+[
+  {
+    "outputFileName": "wwwroot/js/site.js",
+    "inputFiles": [
+      "node_modules/materialize-css/dist/js/materialize.min.js"
+    ],
+    "sourceMap": false
+  }
+]
