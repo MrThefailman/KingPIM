@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KingPIM.Models
 {
-    // Denna sparas inte i databasen
+    // This doesnt save in the database
     public class ReadOnlyAttribute
     {
         public DateTime AddedDate { get; set; }
