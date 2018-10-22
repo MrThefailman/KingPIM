@@ -4,5 +4,8 @@
   "private": true,
   "devDependencies": {
     "materialize-css": "1.0.0"
+  },
+  "dependencies": {
+    "feather-icons": "^4.7.3"
   }
 }
