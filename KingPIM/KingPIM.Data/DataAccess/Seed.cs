@@ -16,12 +16,7 @@ namespace KingPIM.Data
             var attributeGroupList = new List<AttributeGroup>();
             var productAttributeList = new List<ProductAttribute>();
             var productAttributeValueList = new List<ProductAttributeValue>();
-
-            var productAttributeValue = new ProductAttributeValue
-            {
-                Value = "Value"
-            };
-
+            
             var productAttribute = new ProductAttribute
             {
                 Name = "White",
@@ -70,6 +65,19 @@ namespace KingPIM.Data
                 // Adds the categories and all the connections behind:
                 ctx.Categories.AddRange(category);
             };
+
+            // The category attributes value:
+            if (!ctx.ProductAttributeValues.Any())
+            {
+                var productAttributeValue = new ProductAttributeValue
+                {
+                    ProductId = 1,
+                    ProductAttributeId = 1,
+                    Value = "string"
+                };
+                ctx.ProductAttributeValues.AddRange(productAttributeValue);
+            }
+
             ctx.SaveChanges();
         }
     }
