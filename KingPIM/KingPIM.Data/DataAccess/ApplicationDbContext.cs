@@ -13,8 +13,8 @@ namespace KingPIM.Data
 
         }
 
-        public DbSet<Category> Categorys { get; set; }
-        public DbSet<Subcategory> Subcategorys { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<AttributeGroup> AttributeGroups { get; set; }
         public DbSet<ProductAttribute> ProductAttributes { get; set; }

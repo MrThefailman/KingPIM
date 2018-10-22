@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KingPIM.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181022055423_initial")]
+    [Migration("20181022065137_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,7 @@ namespace KingPIM.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorys");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("KingPIM.Models.Product", b =>
@@ -148,7 +148,7 @@ namespace KingPIM.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Subcategorys");
+                    b.ToTable("Subcategories");
                 });
 
             modelBuilder.Entity("KingPIM.Models.AttributeGroup", b =>

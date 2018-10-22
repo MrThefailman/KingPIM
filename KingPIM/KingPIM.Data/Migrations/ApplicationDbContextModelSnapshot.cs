@@ -56,7 +56,7 @@ namespace KingPIM.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorys");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("KingPIM.Models.Product", b =>
@@ -146,7 +146,7 @@ namespace KingPIM.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Subcategorys");
+                    b.ToTable("Subcategories");
                 });
 
             modelBuilder.Entity("KingPIM.Models.AttributeGroup", b =>

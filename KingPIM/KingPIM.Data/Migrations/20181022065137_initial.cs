@@ -9,7 +9,7 @@ namespace KingPIM.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categorys",
+                name: "Categories",
                 columns: table => new
                 {
                     AddedDate = table.Column<DateTime>(nullable: false),
@@ -22,11 +22,11 @@ namespace KingPIM.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categorys", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subcategorys",
+                name: "Subcategories",
                 columns: table => new
                 {
                     AddedDate = table.Column<DateTime>(nullable: false),
@@ -40,11 +40,11 @@ namespace KingPIM.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subcategorys", x => x.Id);
+                    table.PrimaryKey("PK_Subcategories", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Subcategorys_Categorys_CategoryId",
+                        name: "FK_Subcategories_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categorys",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -63,9 +63,9 @@ namespace KingPIM.Data.Migrations
                 {
                     table.PrimaryKey("PK_AttributeGroups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AttributeGroups_Subcategorys_SubcategoryId",
+                        name: "FK_AttributeGroups_Subcategories_SubcategoryId",
                         column: x => x.SubcategoryId,
-                        principalTable: "Subcategorys",
+                        principalTable: "Subcategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -89,9 +89,9 @@ namespace KingPIM.Data.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Subcategorys_SubcategoryId",
+                        name: "FK_Products_Subcategories_SubcategoryId",
                         column: x => x.SubcategoryId,
-                        principalTable: "Subcategorys",
+                        principalTable: "Subcategories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -164,8 +164,8 @@ namespace KingPIM.Data.Migrations
                 column: "SubcategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subcategorys_CategoryId",
-                table: "Subcategorys",
+                name: "IX_Subcategories_CategoryId",
+                table: "Subcategories",
                 column: "CategoryId");
         }
 
@@ -184,10 +184,10 @@ namespace KingPIM.Data.Migrations
                 name: "AttributeGroups");
 
             migrationBuilder.DropTable(
-                name: "Subcategorys");
+                name: "Subcategories");
 
             migrationBuilder.DropTable(
-                name: "Categorys");
+                name: "Categories");
         }
     }
 }

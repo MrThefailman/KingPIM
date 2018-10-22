@@ -6,76 +6,71 @@ using System.Text;
 
 namespace KingPIM.Data
 {
-    public static class Seed
+    public class Seed
     {
         public static void FillIfEmpty(ApplicationDbContext ctx)
         {
-            // Checks if theres any categories and if there isnt it adds everything
-            if (!ctx.Categorys.Any())
+            // The list variables created for the Seed():
+            var subCategoryList = new List<Subcategory>();
+            var productList = new List<Product>();
+            var attributeGroupList = new List<AttributeGroup>();
+            var productAttributeList = new List<ProductAttribute>();
+            var productAttributeValueList = new List<ProductAttributeValue>();
+
+            var productAttributeValue = new ProductAttributeValue
             {
+                Value = "Value"
+            };
 
-                
-                // List of subcategories
-                var SportSubCategoryList = new List<Subcategory>();
-                // List of products
-                var FloorballProductList = new List<Product>();
-                // List of AttributeGroups
-                var FloorballClubAttributeGroup = new List<AttributeGroup>();
-                // List of Product attributes
-                var FloorballClubBladeProductAttribute = new List<ProductAttribute>();
+            var productAttribute = new ProductAttribute
+            {
+                Name = "White",
+                Description = "The color of this longsleeved shirt is white.",
+                Type = "bool"
+            };
+            productAttributeList.Add(productAttribute);
 
-                // Category
-                var Sport = new Category
+            var attributeGroup = new AttributeGroup
+            {
+                Name = "Color",
+                Description = "The color of the longsleeved shirt.",
+                ProductAttributes = productAttributeList
+            };
+            attributeGroupList.Add(attributeGroup);
+
+            var product = new Product
+            {
+                Name = "Ralph Lauren",
+                Description = "Slim fit, long sleeved shirt.",
+                Price = 999
+            };
+            productList.Add(product);
+
+            var subCategoryDataOne = new Subcategory
+            {
+                Name = "Long sleeve",
+                Products = productList,
+                AttributeGroups = attributeGroupList,
+                UpdatedDate = DateTime.Now.Date,
+                AddedDate = DateTime.Today
+            };
+            subCategoryList.Add(subCategoryDataOne);
+
+            // Category:
+            if (!ctx.Categories.Any())
+            {
+                var category = new Category
                 {
-                    Name = "Sport",
-                    AddedDate = DateTime.Now.Date,
-                    Subcategories = SportSubCategoryList
+                    Name = "Shirts",
+                    Subcategories = subCategoryList,
+                    UpdatedDate = DateTime.Now.Date,
+                    AddedDate = DateTime.Now,
+                    Published = false,
                 };
-                
-                // New subcategory
-                var Floorball = new Subcategory
-                {
-                    Name = "Innebandy",
-                    Category = Sport,
-                    Products = FloorballProductList,
-                    AttributeGroups = FloorballClubAttributeGroup
-                };
-                // Need to add all subcategories to the list
-                SportSubCategoryList.Add(Floorball);
-                
-                // Floorball product
-                var FloorballClub = new Product
-                {
-                    Name = "Innebandy klubba",
-                    Description = "Grundverktyget för att spela innebandy",
-                    Price = 199.50,
-                    Subcategory = Floorball,
-                };
-                FloorballProductList.Add(FloorballClub);
-
-                // Floorball club attribute
-                var Blade = new AttributeGroup
-                {
-                    Name = "Blad",
-                    Description = "Bladet på innebandyklubban",
-                    ProductAttributes = FloorballClubBladeProductAttribute
-                };
-                FloorballClubAttributeGroup.Add(Blade);
-
-                // Blade attribute values
-                var BladeColor = new ProductAttribute
-                {
-                    Name = "Färg",
-                    Description = "Blå",
-                    AttributeGroup = Blade,
-                };
-                FloorballClubBladeProductAttribute.Add(BladeColor);
-
-                ctx.SaveChanges();
-
-            }
-            
+                // Adds the categories and all the connections behind:
+                ctx.Categories.AddRange(category);
+            };
+            ctx.SaveChanges();
         }
-
     }
 }
