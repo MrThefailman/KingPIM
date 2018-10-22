@@ -27,18 +27,16 @@ namespace KingPIM.Data
                 // Category
                 var Sport = new Category
                 {
-                    Id = 1,
                     Name = "Sport",
+                    AddedDate = DateTime.Now.Date,
                     Subcategories = SportSubCategoryList
                 };
                 
                 // New subcategory
                 var Floorball = new Subcategory
                 {
-                    Id = 1,
                     Name = "Innebandy",
                     Category = Sport,
-                    CategoryId = 1,
                     Products = FloorballProductList,
                     AttributeGroups = FloorballClubAttributeGroup
                 };
@@ -48,19 +46,16 @@ namespace KingPIM.Data
                 // Floorball product
                 var FloorballClub = new Product
                 {
-                    Id = 1,
                     Name = "Innebandy klubba",
                     Description = "Grundverktyget för att spela innebandy",
                     Price = 199.50,
                     Subcategory = Floorball,
-                    SubcategoryId = 1
                 };
                 FloorballProductList.Add(FloorballClub);
 
                 // Floorball club attribute
                 var Blade = new AttributeGroup
                 {
-                    Id = 1,
                     Name = "Blad",
                     Description = "Bladet på innebandyklubban",
                     ProductAttributes = FloorballClubBladeProductAttribute
@@ -70,15 +65,13 @@ namespace KingPIM.Data
                 // Blade attribute values
                 var BladeColor = new ProductAttribute
                 {
-                    Id = 1,
                     Name = "Färg",
                     Description = "Blå",
                     AttributeGroup = Blade,
-                    AttributeGroupId = 1,
                 };
                 FloorballClubBladeProductAttribute.Add(BladeColor);
 
-
+                ctx.SaveChanges();
 
             }
             

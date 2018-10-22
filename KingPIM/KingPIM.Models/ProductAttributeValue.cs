@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,10 +12,12 @@ namespace KingPIM.Models
 
         public virtual ProductAttribute ProductAttribute { get; set; }
         [Key, Column(Order = 0)]
-        public int ProductAttributId { get; set; }
+        public int ProductAttributeId { get; set; }
         public virtual Product Product { get; set; }
         [Key, Column(Order = 1)]
         public int ProductId { get; set; }
         public string Value { get; set; }
+
+        
     }
 }

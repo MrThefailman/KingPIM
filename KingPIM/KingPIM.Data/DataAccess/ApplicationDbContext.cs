@@ -6,9 +6,9 @@ using System.Text;
 
 namespace KingPIM.Data
 {
-    public class ApplicationDbContext
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext()
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
         }
@@ -19,5 +19,10 @@ namespace KingPIM.Data
         public DbSet<AttributeGroup> AttributeGroups { get; set; }
         public DbSet<ProductAttribute> ProductAttributes { get; set; }
         public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProductAttributeValue>().HasKey(k => new { k.ProductAttributeId, k.ProductId });
+        }
     }
 }
