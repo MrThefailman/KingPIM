@@ -2,7 +2,9 @@
   {
     "outputFileName": "wwwroot/js/site.js",
     "inputFiles": [
-      "node_modules/materialize-css/dist/js/materialize.min.js"
+      "node_modules/materialize-css/dist/js/materialize.min.js",
+      "node_modules/jquery/dist/jquery.min.js",
+      "node_modules/popper.js/dist/umd/popper.min.js"
     ],
     "sourceMap": false
   }

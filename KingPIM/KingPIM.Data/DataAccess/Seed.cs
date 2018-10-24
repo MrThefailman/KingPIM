@@ -32,7 +32,7 @@ namespace KingPIM.Data
                 ProductAttributes = productAttributeList
             };
             attributeGroupList.Add(attributeGroup);
-
+            
             var product = new Product
             {
                 Name = "Ralph Lauren",
@@ -40,6 +40,19 @@ namespace KingPIM.Data
                 Price = 999
             };
             productList.Add(product);
+
+            // The category attributes value:
+            //if (!ctx.ProductAttributeValues.Any())
+            //{
+            //    var productAttributeValue = new ProductAttributeValue
+            //    {
+            //        ProductId = 1,
+            //        ProductAttributeId = 1,
+            //        Value = "string"
+            //    };
+            //    ctx.ProductAttributeValues.AddRange(productAttributeValue);
+            //};
+            //productAttributeValue.Add(productAttributeValueList);
 
             var subCategoryDataOne = new Subcategory
             {
@@ -66,17 +79,6 @@ namespace KingPIM.Data
                 ctx.Categories.AddRange(category);
             };
 
-            // The category attributes value:
-            if (!ctx.ProductAttributeValues.Any())
-            {
-                var productAttributeValue = new ProductAttributeValue
-                {
-                    ProductId = 1,
-                    ProductAttributeId = 1,
-                    Value = "string"
-                };
-                ctx.ProductAttributeValues.AddRange(productAttributeValue);
-            }
 
             ctx.SaveChanges();
         }
