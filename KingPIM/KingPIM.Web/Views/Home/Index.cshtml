@@ -1,36 +1,211 @@
-﻿
+﻿@model HomeViewModel
+
 <partial name="SidebarPartialView" />
 
-<div class="row">
-    <div class="col s12 m8 offset-m1 xl7 offset-xl1" style="margin-top: 1.5em">
-        <a href="#loginModal" class="btn-floating waves-effect light-green modal-trigger"><i class="material-icons">account_circle</i></a>
-    </div>
-</div>
+<div class="container">
+    <div class="row" style="margin-top: 1.5em">
 
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <h4 class="center">Login</h4>
+        @*Logs you out and only shows if youre logged in*@
+        <div class="right">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="#createCategoryModal" class="btn waves-effect green modal-trigger">New category<i class="material-icons right">playlist_add</i></a>
+                <a asp-action="Logout" asp-controller="Account" class="btn waves-effect red">Logout<i class="material-icons right">exit_to_app</i></a>
+            }
+            else
+            {
+                <a href="#loginModal" class="btn waves-effect light-green modal-trigger">Login<i class="material-icons right">account_circle</i></a>
+            }
+        </div>
+    </div>
+
+    @*This div ofsets itself from the sidebar*@
+    <div style="margin-left:8em">
+        <div class="row">
+            @*Table of categories*@
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Published</th>
+                        <th>Version</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model.Categories)
+                    {
+                        <tr>
+                            <td>@c.Name</td>
+
+                            @if (c.Published)
+                            {
+                                <td>Yes</td>
+                            }
+                            else
+                            {
+                                <td>No</td>
+                            }
+                            @if (User.Identity.IsAuthenticated && !c.Published)
+                            {
+                                <a class="btn waves-effect yellow darken-2">
+                                    Publish
+                                    <i class="material-icons right">check</i>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="btn waves-effect red">
+                                    Unpublish
+                                    <i class="material-icons right"></i>
+                                </a>
+                            }
+
+                            <td>@c.Version</td>
+                            <td>
+                                @*Leads to edit modal*@
+                                <a href="#editCategoryModal" class="btn waves-effect yellow darken-2 modal-trigger">
+                                    Edit
+                                    <i class="material-icons right">edit</i>
+                                </a>
+                                @*modal-trigger*@
+                                @*Leads to delete modal*@
+                                <a href="#deleteCategoryModal" class="deleteCat btn waves-effect red darken-2 modal-trigger" data-id="@c.Id">
+                                    Delete
+                                    <i class="material-icons right">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+
+
+    @*Login modal*@
+    <div id="loginModal" class="modal">
+
         @*Login form*@
-        <form class="col s12">
-            <div class="row">
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input id="icon_prefix" type="text" class="validate" required>
-                    <label for="icon_prefix">Email</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">vpn_key</i>
-                    <input id="icon_vpn_key" type="password" class="validate" required>
-                    <label for="icon_vpn_key">Password</label>
+        <form asp-action="Login" asp-controller="Account" method="post" class="col s12">
+
+            <div class="modal-content">
+                <h4 class="center">Login</h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input asp-for="UserName" id="icon_prefix" type="text" class="validate" required>
+                        <label asp-for="UserName" for="icon_prefix">Email</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">vpn_key</i>
+                        <input asp-for="Password" id="icon_vpn_key" type="password" class="validate" required>
+                        <label asp-for="Password" for="icon_vpn_key">Password</label>
+                    </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button class="modal-close waves-effect btn green" type="submit">
+                    Login
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    @*Create category modal*@
+    <div id="createCategoryModal" class="modal">
+
+        @*Create category form*@
+        <form asp-action="CreateCategory" asp-controller="Category" method="post" class="col s12">
+
+            <div class="modal-content">
+                <h4 class="center">Create new category</h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">library_books</i>
+                        <input asp-for="Name" id="icon_library_books" type="text" class="validate" required>
+                        <label asp-for="Name" for="icon_library_books">Category name</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="modal-close waves-effect btn grey">
+                    cancel
+                    <i class="material-icons right">cancel</i>
+                </a>
+                <button class="modal-close waves-effect btn green" type="submit">
+                    Create
+                    <i class="material-icons right">library_add</i>
+                </button>
+            </div>
+
         </form>
     </div>
-    <div class="modal-footer">
-        <a asp-action="Index" asp-controller="account" class="modal-close waves-effect btn green">
-            Login
-            <i class="material-icons right">send</i>
-        </a>
+
+    @*Delete category modal*@
+    <div id="deleteCategoryModal" class="modal">
+        <div class="modal-content">
+            <h4 class="center">This will remove all the subcategories and products that are linked to this category!</h4>
+            <div class="row">
+                <h5 class="center">Are you sure you want to delete all of them?</h5>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row right">
+                <a class="modal-close waves-effect btn grey col">
+                    No, cancel
+                    <i class="material-icons right">cancel</i>
+                </a>
+                <form>
+
+                    <button asp-action="DeleteCategory" asp-controller="Category"
+                            class="modal-close btn waves-effect red darken-2 modal-trigger col" type="submit" style="margin-left:1em">
+                        Yes, delete
+                        <i class="material-icons right">delete</i>
+                    </button>
+                    <input class="deleteCategoryModalInput" type="hidden" name="categoryId" value="" />
+
+                </form>
+            </div>
+            
+        </div>
     </div>
+
+    @*<a asp-action="Edit" asp-controller="Category" asp-route-id="@c.Id"
+        class="btn waves-effect yellow darken-2">Edit<i class="material-icons right">edit</i></a>*@
+
+    @*Edit category modal*@
+    <div id="editCategoryModal" class="modal">
+        <div class="modal-content">
+            <h4 class="center">Edit Category</h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">library_books</i>
+                    <input asp-for="Name" id="EditCat" type="text" class="validate" required>
+                    <label asp-for="Name" for="icon_library_books">Category name</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="modal-close waves-effect btn grey">
+                cancel
+                <i class="material-icons right">cancel</i>
+            </a>
+            <button class="modal-close waves-effect btn green" type="submit">
+                edit
+                <i class="material-icons right">edit</i>
+            </button>
+        </div>
+    </div>
+
+
 </div>
 

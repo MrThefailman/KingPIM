@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\KingPIM.Data\KingPIM.Data.csproj" />
+    <ProjectReference Include="..\KingPIM.Models\KingPIM.Models.csproj" />
+  </ItemGroup>
+
 </Project>

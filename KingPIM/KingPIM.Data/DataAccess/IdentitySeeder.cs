@@ -25,17 +25,18 @@ namespace KingPIM.Data.DataAccess
         {
             if(!_context.Users.Any(u => u.UserName == _admin))
             {
-                await _userManager.CreateAsync(new IdentityUser
+                var user = new IdentityUser
                 {
                     UserName = _admin,
                     Email = "admin@gmail.com",
                     EmailConfirmed = true
-                }, _password);
+                };
+
+                var result = await _userManager.CreateAsync(user, _password);
+                var test = result.Succeeded;
             }
-
-            // TODO: Admin Roles & make admin top role
-
             return true;
+            
         }
     }
 }

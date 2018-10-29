@@ -11,29 +11,43 @@
 </head>
 <body>
 
-
-
-
-    <div class="container">
-        @RenderBody()
-    </div>
-
+    @RenderBody()
 
     <script src="~/js/site.js"></script>
 
     <script>
         $(document).ready(function () {
             var sidebar = $('.collapsible');
-            var SBinstances = M.Collapsible.init(sidebar/*, options*/);
+            var SBInstances = M.Collapsible.init(sidebar/*, options*/);
 
             var loginModal = $('#loginModal');
-            var LMinstances = M.Modal.init(loginModal/*, options*/)
+            var LMInstances = M.Modal.init(loginModal/*, options*/);
+
+            var createCategoryModal = $('#createCategoryModal');
+            var CCMInstances = M.Modal.init(createCategoryModal/*, options*/);
+            
+            var deleteCategoryModal = $('#deleteCategoryModal');
+            var DCMInstances = M.Modal.init(deleteCategoryModal/*, options*/);
+
+            var editCategoryModal = $('#editCategoryModal');
+            var ECMInstances = M.Modal.init(editCategoryModal/*, options*/)
+
+            $('.deleteCat').click(function() {
+                
+                var categoryId = $(this).data('id');
+                console.log(categoryId);
+                var deleteInput = $('.deleteCategoryModalInput').attr('value', categoryId);
+                
+                //deleteInput = categoryId;
+                console.log(deleteInput);
 
 
+                
+            });
+            
         });
 
     </script>
-
 
 </body>
 </html>

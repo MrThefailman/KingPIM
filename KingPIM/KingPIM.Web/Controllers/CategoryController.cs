@@ -2,12 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using KingPIM.Models;
+using KingPIM.Models.ViewModels;
+using KingPIM.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KingPIM.Web.Controllers
 {
+
     public class CategoryController : Controller
     {
+        private ICategoryRepository Repo;
+        public CategoryController(ICategoryRepository categoryRepository)
+        {
+            Repo = categoryRepository;
+        }
         // Get all
         public IActionResult Index()
         {
@@ -21,9 +30,12 @@ namespace KingPIM.Web.Controllers
         }
 
         // Create new Category
-        public IActionResult NewCategory()
+        [HttpPost]
+        public IActionResult CreateCategory(HomeViewModel vm)
         {
-            return View();
+            Repo.CreateCategory(vm);
+            
+            return RedirectToAction("Index", "Home");
         }
 
         // Updates single Category
@@ -32,10 +44,25 @@ namespace KingPIM.Web.Controllers
             return View();
         }
 
-        // Deletes Category
-        public IActionResult DeleteCategory()
+        // Updates published value
+        public IActionResult PublishCategory(int categoryId)
         {
+            //var publish = 
+
+
             return View();
+        }
+
+        // Deletes Category
+        public IActionResult DeleteCategory(int categoryId)
+        {
+            var delete = Repo.DeleteCategory(categoryId);
+            if(delete != null)
+            {
+                DeleteCategory(categoryId);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

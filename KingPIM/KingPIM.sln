@@ -5,13 +5,11 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingPIM.Web", "KingPIM.Web\KingPIM.Web.csproj", "{9269981E-E1C3-4164-8240-18BEC19A525A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPIM.Data", "KingPIM.Data\KingPIM.Data.csproj", "{3FAC437E-7A01-492D-93E3-8561300DE828}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingPIM.Data", "KingPIM.Data\KingPIM.Data.csproj", "{3FAC437E-7A01-492D-93E3-8561300DE828}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPIM.Repositories", "KingPIM.Repositories\KingPIM.Repositories.csproj", "{42E21E4A-4B3F-4167-A62C-73C9557F37AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingPIM.Repositories", "KingPIM.Repositories\KingPIM.Repositories.csproj", "{42E21E4A-4B3F-4167-A62C-73C9557F37AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KingPIM.Models", "KingPIM.Models\KingPIM.Models.csproj", "{43C6B929-EC96-4F29-A901-8448A921AF07}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionMethods", "ExtensionMethods\ExtensionMethods.csproj", "{B4536B11-2E88-4101-8665-95B47BF8C33C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KingPIM.Models", "KingPIM.Models\KingPIM.Models.csproj", "{43C6B929-EC96-4F29-A901-8448A921AF07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{43C6B929-EC96-4F29-A901-8448A921AF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43C6B929-EC96-4F29-A901-8448A921AF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43C6B929-EC96-4F29-A901-8448A921AF07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4536B11-2E88-4101-8665-95B47BF8C33C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4536B11-2E88-4101-8665-95B47BF8C33C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4536B11-2E88-4101-8665-95B47BF8C33C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4536B11-2E88-4101-8665-95B47BF8C33C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

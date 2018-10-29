@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KingPIM.Web.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
 
@@ -23,6 +22,7 @@ namespace KingPIM.Web.Controllers
         }
 
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -36,7 +36,8 @@ namespace KingPIM.Web.Controllers
             
         }
 
-        public async Task<IActionResult> Login(LoginViewModel vm)
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(HomeViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -46,11 +47,11 @@ namespace KingPIM.Web.Controllers
                     await _signInManager.SignOutAsync();
                     if((await _signInManager.PasswordSignInAsync(user, vm.Password, false, false)).Succeeded)
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }
-            return View("Index", vm);
+            return RedirectToAction("Index", "Home", vm);
         }
 
         public async Task<IActionResult> Logout()

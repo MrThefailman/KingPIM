@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using KingPIM.Data.DataAccess;
+using KingPIM.Repositories;
 
 namespace KingPIM.Web
 {
@@ -42,6 +43,19 @@ namespace KingPIM.Web
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+
+            services.AddTransient<IIdentitySeeder, IdentitySeeder>();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 3;
+            });
 
         }
 
@@ -76,7 +90,7 @@ namespace KingPIM.Web
                     template: "{controller=Account}/{action=Index}");
             });
 
-            identitySeeder.CreateAdminAccountIfEmpty();
+            var runIdentitySeed = Task.Run(async () => await identitySeeder.CreateAdminAccountIfEmpty()).Result;
 
             Seed.FillIfEmpty(ctx);
 

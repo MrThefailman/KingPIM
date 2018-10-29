@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\KingPIM.Data\KingPIM.Data.csproj" />
+    <ProjectReference Include="..\KingPIM.Repositories\KingPIM.Repositories.csproj" />
   </ItemGroup>
 
 </Project>
