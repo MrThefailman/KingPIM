@@ -11,12 +11,12 @@ namespace KingPIM.Repositories
         IEnumerable<Category> Categories { get; }
         IEnumerable<Category> GetCategories();
 
-        void CreateCategory(HomeViewModel vm);
+        void CreateCategory(CategoryViewModel vm);
 
         Category DeleteCategory(int categoryId);
 
-        //Category EditCategory(int categoryId);
+        void EditCategory(CategoryViewModel c);
 
-        void PublishCategory(Category category);
+        void PublishCategory(CategoryViewModel c);
     }
 }

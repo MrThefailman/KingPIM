@@ -5,23 +5,18 @@ using System.Text;
 
 namespace KingPIM.Models.ViewModels
 {
-    public class HomeViewModel
+    public class CategoryViewModel
     {
-        // Identity
-        [DataType(DataType.EmailAddress)]
-        [Required]
-        public string UserName { get; set; }
-
-        [DataType(DataType.Password)]
-        [Required]
-        public string Password { get; set; }
-
         // To read all the categories
         public IEnumerable<Category> Categories { get; set; }
         
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public bool Published { get; set; }
+
+        public DateTime UpdatedDate { get; set; }
 
         public int CategoryId { get; set; }
 

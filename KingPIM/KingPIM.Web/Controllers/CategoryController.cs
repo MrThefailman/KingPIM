@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 using KingPIM.Models;
 using KingPIM.Models.ViewModels;
 using KingPIM.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KingPIM.Web.Controllers
 {
-
+    [Authorize]
     public class CategoryController : Controller
     {
         private ICategoryRepository Repo;
@@ -20,7 +21,13 @@ namespace KingPIM.Web.Controllers
         // Get all
         public IActionResult Index()
         {
-            return View();
+            var categories = Repo.GetCategories();
+            var vm = new CategoryViewModel
+            {
+                Categories = categories
+            };
+
+            return View(vm);
         }
 
         // Will return single category
@@ -31,26 +38,39 @@ namespace KingPIM.Web.Controllers
 
         // Create new Category
         [HttpPost]
-        public IActionResult CreateCategory(HomeViewModel vm)
+        public IActionResult CreateCategory(CategoryViewModel vm)
         {
             Repo.CreateCategory(vm);
             
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         // Updates single Category
-        public IActionResult UpdateCategory()
+        public IActionResult UpdateCategory(CategoryViewModel categoryViewModel)
         {
-            return View();
+            var category = Repo.Categories.FirstOrDefault(x => x.Id.Equals(categoryViewModel.CategoryId));
+
+            if(ModelState.IsValid && categoryViewModel != null)
+            {
+
+                Repo.EditCategory(categoryViewModel);
+
+            }
+
+            return RedirectToAction("Index", categoryViewModel);
         }
 
         // Updates published value
-        public IActionResult PublishCategory(int categoryId)
+        public IActionResult PublishCategory(CategoryViewModel categoryViewModel)
         {
-            //var publish = 
+            var category = Repo.Categories.FirstOrDefault(x => x.Id.Equals(categoryViewModel.CategoryId));
+            
+            if(ModelState.IsValid && categoryViewModel != null)
+            {
+                Repo.PublishCategory(categoryViewModel);
+            }
 
-
-            return View();
+            return RedirectToAction("Index");
         }
 
         // Deletes Category
@@ -62,7 +82,7 @@ namespace KingPIM.Web.Controllers
                 DeleteCategory(categoryId);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
     }
 }

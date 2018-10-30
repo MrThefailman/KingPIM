@@ -20,24 +20,9 @@ namespace KingPIM.Web.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
-
+        
         [AllowAnonymous]
-        public IActionResult Index()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            
-        }
-
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(HomeViewModel vm)
+        public async Task<IActionResult> Index(LoginViewModel vm)
         {
             if (ModelState.IsValid)
             {
@@ -47,17 +32,17 @@ namespace KingPIM.Web.Controllers
                     await _signInManager.SignOutAsync();
                     if((await _signInManager.PasswordSignInAsync(user, vm.Password, false, false)).Succeeded)
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Category");
                     }
                 }
             }
-            return RedirectToAction("Index", "Home", vm);
+            return RedirectToAction("Index", "Category", vm);
         }
 
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
     }
 }

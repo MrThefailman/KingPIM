@@ -11,20 +11,10 @@ namespace KingPIM.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private ICategoryRepository Repo;
-        public HomeController(ICategoryRepository categoryRepository)
-        {
-            Repo = categoryRepository;
-        }
         public IActionResult Index()
         {
-            var categories = Repo.GetCategories();
-            var vm = new HomeViewModel
-            {
-                Categories = categories
-            };
-
-            return View(vm);
+            
+            return View();
         }
     }
 }

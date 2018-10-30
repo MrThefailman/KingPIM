@@ -17,6 +17,9 @@
 
     <script>
         $(document).ready(function () {
+
+            M.updateTextFields();
+
             var sidebar = $('.collapsible');
             var SBInstances = M.Collapsible.init(sidebar/*, options*/);
 
@@ -35,14 +38,19 @@
             $('.deleteCat').click(function() {
                 
                 var categoryId = $(this).data('id');
-                console.log(categoryId);
                 var deleteInput = $('.deleteCategoryModalInput').attr('value', categoryId);
                 
-                //deleteInput = categoryId;
-                console.log(deleteInput);
+            });
 
-
+            $('.editCat').click(function() {
                 
+                var categoryId = $(this).data('id');
+                var categoryName = $(this).data('name');
+                var editInput = $('.editCategoryModalInput').attr('value', categoryId);
+                var editName = $('.editCategoryModalValue').attr('value', categoryName)
+                
+                M.updateTextFields();
+
             });
             
         });

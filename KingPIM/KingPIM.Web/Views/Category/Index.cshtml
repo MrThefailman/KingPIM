@@ -1,0 +1,173 @@
+﻿@model CategoryViewModel
+
+<partial name="SidebarPartialView" />
+
+<div class="container">
+    <div class="row" style="margin-top: 1.5em">
+
+        @*Logs you out and only shows if youre logged in*@
+        <div class="right">
+          
+            <a href="#createCategoryModal" class="btn waves-effect green modal-trigger">New category<i class="material-icons right">playlist_add</i></a>
+            <a asp-action="Logout" asp-controller="Account" class="btn waves-effect red">Logout<i class="material-icons right">exit_to_app</i></a>
+            
+        </div>
+    </div>
+
+    @*This div ofsets itself from the sidebar*@
+    <div style="margin-left:8em">
+        <div class="row">
+            @*Table of categories*@
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Published</th>
+                        <th>Version</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var c in Model.Categories)
+                    {
+                        <tr>
+                            <td>@c.Name</td>
+                                <td>
+                                    <form asp-action="PublishCategory" asp-controller="Category">
+
+                                        @if (c.Published)
+                                        {
+                                            <button class="btn waves-effect green darken-1" type="submit">
+                                                Published
+                                                <i class="material-icons right">check</i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn waves-effect red" type="submit">
+                                                Unpublished
+                                                <i class="material-icons right">lock_outline</i>
+                                            </button>
+                                        }
+                                        <input type="hidden" name="categoryId" value="@c.Id" />
+
+                                    </form>
+
+                                </td>
+
+                            <td>@c.Version</td>
+                            <td>
+                                @*Leads to edit modal*@
+                                <a href="#editCategoryModal" class="editCat btn waves-effect yellow darken-2 modal-trigger" data-id="@c.Id" data-name="@c.Name">
+                                    Edit
+                                    <i class="material-icons right">edit</i>
+                                </a>
+                                @*modal-trigger*@
+                                @*Leads to delete modal*@
+                                <a href="#deleteCategoryModal" class="deleteCat btn waves-effect red darken-2 modal-trigger" data-id="@c.Id">
+                                    Delete
+                                    <i class="material-icons right">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+
+    @*Create category modal*@
+    <div id="createCategoryModal" class="modal">
+
+        @*Create category form*@
+        <form asp-action="CreateCategory" asp-controller="Category" method="post" class="col s12">
+
+            <div class="modal-content">
+                <h4 class="center">Create new category</h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">library_books</i>
+                        <input asp-for="Name" id="icon_library_books" type="text" class="validate" required>
+                        <label asp-for="Name" for="icon_library_books">Category name</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="modal-close waves-effect btn grey">
+                    cancel
+                    <i class="material-icons right">cancel</i>
+                </a>
+                <button class="modal-close waves-effect btn green" type="submit">
+                    Create
+                    <i class="material-icons right">library_add</i>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    @*Delete category modal*@
+    <div id="deleteCategoryModal" class="modal">
+        <div class="modal-content">
+            <h4 class="center">This will remove all the subcategories and products that are linked to this category!</h4>
+            <div class="row">
+                <h5 class="center">Are you sure you want to delete all of them?</h5>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="right">
+                    
+                    <form>
+                        <a class="modal-close waves-effect btn grey col">
+                            No, cancel
+                            <i class="material-icons right">cancel</i>
+                        </a>
+                        <button asp-action="DeleteCategory" asp-controller="Category"
+                                class="modal-close btn waves-effect red darken-2 modal-trigger col" type="submit" style="margin-left:1em">
+                            Yes, delete
+                            <i class="material-icons right">delete</i>
+                        </button>
+                        <input class="deleteCategoryModalInput" type="hidden" name="categoryId" value="" />
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @*Edit category modal*@
+    <div id="editCategoryModal" class="modal">
+        <form asp-action="UpdateCategory" asp-controller="Category">
+            <div class="modal-content">
+                <h4 class="center">Edit Category</h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">library_books</i>
+                        <input asp-for="Name" id="edit_library_books" type="text" class="editCategoryModalValue validate" value="" required>
+                        <label asp-for="Name" for="edit_library_books" class="active">Change category name</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="modal-close waves-effect btn grey">
+                    cancel
+                    <i class="material-icons right">cancel</i>
+                </a>
+                <button class="modal-close waves-effect btn green" type="submit">
+                    edit
+                    <i class="material-icons right">edit</i>
+                </button>
+                <input class="editCategoryModalInput" type="hidden" name="categoryId" value="" />
+            </div>
+        </form>
+    </div>
+
+</div>
+

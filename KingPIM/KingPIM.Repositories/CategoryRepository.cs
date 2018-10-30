@@ -25,7 +25,7 @@ namespace KingPIM.Repositories
         }
 
         // Add category to DB
-        public void CreateCategory(HomeViewModel vm)
+        public void CreateCategory(CategoryViewModel vm)
         {
             //var ctxCategories = ctx.Categories;
 
@@ -59,22 +59,42 @@ namespace KingPIM.Repositories
         }
 
         // Publishes category
-        public void PublishCategory(Category category)
+        public void PublishCategory(CategoryViewModel c)
         {
             // Patrik, DRY?
-            var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(category.Id));
+            var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(c.CategoryId));
+
             if(ctxCategory != null)
             {
                 if (!ctxCategory.Published)
                 {
-                    category.Published = true;
+                    ctxCategory.Published = true;
                 }
                 else
                 {
-                    category.Published = false;
+                    ctxCategory.Published = false;
                 }
+                
+            }
+            ctx.SaveChanges();
+            
+        }
+
+        // Edit category
+        public void EditCategory(CategoryViewModel c)
+        {
+            var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(c.CategoryId));
+
+            if(ctxCategory != null)
+            {
+                ctxCategory.Name = c.Name;
+                ctxCategory.UpdatedDate = DateTime.Now;
+                ctxCategory.Version++;
+
+                //ctx.UpdateRange();
             }
             ctx.SaveChanges();
         }
+
     }
 }
