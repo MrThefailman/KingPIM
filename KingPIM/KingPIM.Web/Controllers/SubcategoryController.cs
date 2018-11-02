@@ -74,9 +74,15 @@ namespace KingPIM.Web.Controllers
         }
 
         // Deletes Subcategory
-        public IActionResult DeleteSubCategory()
+        public IActionResult DeleteSubCategory(int subcategoryId)
         {
-            return View();
+            var delete = subcategoryRepo.DeleteSubcategory(subcategoryId);
+            if(delete != null)
+            {
+                DeleteSubCategory(subcategoryId);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

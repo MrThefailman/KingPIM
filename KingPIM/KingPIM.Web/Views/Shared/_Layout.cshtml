@@ -64,7 +64,15 @@
 
             var editSubcategoryModal = $('#editSubcategoryModal');
             var ESMInstances = M.Modal.init(editSubcategoryModal/*, options*/);
-            
+
+            var deleteSubcategoryModal = $('#deleteSubcategoryModal');
+            var DSMInstances = M.Modal.init(deleteSubcategoryModal/*, options*/);
+
+            $('.deleteSubcat').click(function () {
+                var subcategoryId = $(this).data('id');
+                var deleteInput = $('.deleteSubcategoryModalInput').attr('value', subcategoryId);
+            })
+
             $('.editSubcat').click(function () {
 
                 var subcategoryId = $(this).data('id');
