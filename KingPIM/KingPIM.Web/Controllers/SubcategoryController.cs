@@ -61,6 +61,18 @@ namespace KingPIM.Web.Controllers
             return RedirectToAction("Index", vm);
         }
 
+        // Updates published value
+        public IActionResult PublishSubcategory(MainPageViewModel vm)
+        {
+            var subcategory = subcategoryRepo.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.SubcategoryId));
+
+            if(ModelState.IsValid && vm != null)
+            {
+                subcategoryRepo.PublishSubcategory(vm);
+            }
+            return RedirectToAction("Index");
+        }
+
         // Deletes Subcategory
         public IActionResult DeleteSubCategory()
         {
