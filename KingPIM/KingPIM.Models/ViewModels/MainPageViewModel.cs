@@ -17,6 +17,10 @@ namespace KingPIM.Models.ViewModels
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
+        public int Price { get; set; }
+
         public bool Published { get; set; }
 
         public DateTime UpdatedDate { get; set; }
@@ -26,6 +30,8 @@ namespace KingPIM.Models.ViewModels
         public int CategoryId { get; set; }
 
         public int SubcategoryId { get; set; }
+
+        public int ProductId { get; set; }
 
     }
 }
