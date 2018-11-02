@@ -26,6 +26,7 @@
             var loginModal = $('#loginModal');
             var LMInstances = M.Modal.init(loginModal/*, options*/);
 
+            //Start of Category JS script
             var createCategoryModal = $('#createCategoryModal');
             var CCMInstances = M.Modal.init(createCategoryModal/*, options*/);
             
@@ -33,7 +34,7 @@
             var DCMInstances = M.Modal.init(deleteCategoryModal/*, options*/);
 
             var editCategoryModal = $('#editCategoryModal');
-            var ECMInstances = M.Modal.init(editCategoryModal/*, options*/)
+            var ECMInstances = M.Modal.init(editCategoryModal/*, options*/);
 
             $('.deleteCat').click(function() {
                 
@@ -47,12 +48,34 @@
                 var categoryId = $(this).data('id');
                 var categoryName = $(this).data('name');
                 var editInput = $('.editCategoryModalInput').attr('value', categoryId);
-                var editName = $('.editCategoryModalValue').attr('value', categoryName)
+                var editName = $('.editCategoryModalValue').attr('value', categoryName);
                 
                 M.updateTextFields();
 
             });
+
+            // Start of subcategory JS script
+            var createSubcategoryModal = $('#createSubcategoryModal');
+            var CSMInstances = M.Modal.init(createSubcategoryModal/*, options*/);
+
+            // Category select
+            var categorySelect = $('.categoryselect');
+            var CSInstances = M.FormSelect.init(categorySelect/*, options*/);
+
+            var editSubcategoryModal = $('#editSubcategoryModal');
+            var ESMInstances = M.Modal.init(editSubcategoryModal/*, options*/);
             
+            $('.editSubcat').click(function () {
+
+                var subcategoryId = $(this).data('id');
+                var subcategoryName = $(this).data('name');
+                var editInput = $('.editSubcategoryModalInput').attr('value', subcategoryId);
+                var editName = $('.editSubcategoryModalValue').attr('value', subcategoryName);
+
+                M.updateTextFields();
+
+            });
+
         });
 
     </script>

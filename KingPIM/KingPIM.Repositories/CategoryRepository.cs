@@ -25,7 +25,7 @@ namespace KingPIM.Repositories
         }
 
         // Add category to DB
-        public void CreateCategory(CategoryViewModel vm)
+        public void CreateCategory(MainPageViewModel vm)
         {
             //var ctxCategories = ctx.Categories;
 
@@ -59,7 +59,7 @@ namespace KingPIM.Repositories
         }
 
         // Publishes category
-        public void PublishCategory(CategoryViewModel c)
+        public void PublishCategory(MainPageViewModel c)
         {
             // Patrik, DRY?
             var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(c.CategoryId));
@@ -81,7 +81,7 @@ namespace KingPIM.Repositories
         }
 
         // Edit category
-        public void EditCategory(CategoryViewModel c)
+        public void EditCategory(MainPageViewModel c)
         {
             var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(c.CategoryId));
 

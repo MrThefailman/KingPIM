@@ -5,10 +5,13 @@ using System.Text;
 
 namespace KingPIM.Models.ViewModels
 {
-    public class CategoryViewModel
+    public class MainPageViewModel
     {
         // To read all the categories
         public IEnumerable<Category> Categories { get; set; }
+
+        // To read all the subcategories
+        public IEnumerable<Subcategory> Subcategories { get; set; }
         
         public int Id { get; set; }
 
@@ -18,7 +21,11 @@ namespace KingPIM.Models.ViewModels
 
         public DateTime UpdatedDate { get; set; }
 
+        public Category Category { get; set; }
+
         public int CategoryId { get; set; }
+
+        public int SubcategoryId { get; set; }
 
     }
 }

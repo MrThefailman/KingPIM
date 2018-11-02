@@ -13,18 +13,25 @@ namespace KingPIM.Web.Controllers
     [Authorize]
     public class CategoryController : Controller
     {
-        private ICategoryRepository Repo;
-        public CategoryController(ICategoryRepository categoryRepository)
+        // Get access to categoryRepo
+        private ICategoryRepository categoryRepo;
+        // Get access to subcategoryRepo
+        private ISubcategoryRepository subcategoryRepo;
+        public CategoryController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository)
         {
-            Repo = categoryRepository;
+            categoryRepo = categoryRepository;
+            subcategoryRepo = subcategoryRepository;
         }
+        
         // Get all
         public IActionResult Index()
         {
-            var categories = Repo.GetCategories();
-            var vm = new CategoryViewModel
+            var categories = categoryRepo.GetCategories();
+            var subcategories = subcategoryRepo.GetSubcategories();
+            var vm = new MainPageViewModel
             {
-                Categories = categories
+                Categories = categories,
+                Subcategories = subcategories
             };
 
             return View(vm);
@@ -38,36 +45,36 @@ namespace KingPIM.Web.Controllers
 
         // Create new Category
         [HttpPost]
-        public IActionResult CreateCategory(CategoryViewModel vm)
+        public IActionResult CreateCategory(MainPageViewModel vm)
         {
-            Repo.CreateCategory(vm);
+            categoryRepo.CreateCategory(vm);
             
             return RedirectToAction("Index");
         }
 
         // Updates single Category
-        public IActionResult UpdateCategory(CategoryViewModel categoryViewModel)
+        public IActionResult UpdateCategory(MainPageViewModel vm)
         {
-            var category = Repo.Categories.FirstOrDefault(x => x.Id.Equals(categoryViewModel.CategoryId));
+            var category = categoryRepo.Categories.FirstOrDefault(x => x.Id.Equals(vm.CategoryId));
 
-            if(ModelState.IsValid && categoryViewModel != null)
+            if(ModelState.IsValid && vm != null)
             {
 
-                Repo.EditCategory(categoryViewModel);
+                categoryRepo.EditCategory(vm);
 
             }
 
-            return RedirectToAction("Index", categoryViewModel);
+            return RedirectToAction("Index", vm);
         }
 
         // Updates published value
-        public IActionResult PublishCategory(CategoryViewModel categoryViewModel)
+        public IActionResult PublishCategory(MainPageViewModel vm)
         {
-            var category = Repo.Categories.FirstOrDefault(x => x.Id.Equals(categoryViewModel.CategoryId));
+            var category = categoryRepo.Categories.FirstOrDefault(x => x.Id.Equals(vm.CategoryId));
             
-            if(ModelState.IsValid && categoryViewModel != null)
+            if(ModelState.IsValid && vm != null)
             {
-                Repo.PublishCategory(categoryViewModel);
+                categoryRepo.PublishCategory(vm);
             }
 
             return RedirectToAction("Index");
@@ -76,7 +83,7 @@ namespace KingPIM.Web.Controllers
         // Deletes Category
         public IActionResult DeleteCategory(int categoryId)
         {
-            var delete = Repo.DeleteCategory(categoryId);
+            var delete = categoryRepo.DeleteCategory(categoryId);
             if(delete != null)
             {
                 DeleteCategory(categoryId);

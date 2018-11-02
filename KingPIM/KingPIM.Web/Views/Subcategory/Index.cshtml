@@ -1,0 +1,193 @@
+﻿@model MainPageViewModel
+
+<partial name="SidebarPartialView" />
+
+<div class="container">
+    <div class="row" style="margin-top: 1.5em">
+        <div class="right">
+
+            <a href="#createSubcategoryModal" class="btn waves-effect green modal-trigger">New subcategory<i class="material-icons right">playlist_add</i></a>
+            <a asp-action="Logout" asp-controller="Account" class="btn waves-effect red">Logout<i class="material-icons right">exit_to_app</i></a>
+
+        </div>
+    </div>
+
+    @*This div ofsets itself from the sidebar*@
+    <div style="margin-left:8em">
+        <div class="row">
+            @*Table of subcategories*@
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Published</th>
+                        <th>Version</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var s in Model.Subcategories)
+                    {
+                        <tr>
+                            <td>@s.Name</td>
+                            <td>
+                                <form asp-action="PublishSubcategory" asp-controller="Subcategory">
+
+                                    @if (s.Published)
+                                    {
+                                        <button class="btn waves-effect green darken-1" type="submit">
+                                            Published
+                                            <i class="material-icons right">check</i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn waves-effect red" type="submit">
+                                            Unpublished
+                                            <i class="material-icons right">lock_outline</i>
+                                        </button>
+                                    }
+                                    <input type="hidden" name="categoryId" value="@s.Id" />
+
+                                </form>
+
+                            </td>
+
+                            <td>@s.Version</td>
+                            <td>
+                                @*Leads to edit modal*@
+                                <a href="#editSubcategoryModal" class="editSubcat btn waves-effect yellow darken-2 modal-trigger" data-id="@s.Id" data-name="@s.Name">
+                                    Edit
+                                    <i class="material-icons right">edit</i>
+                                </a>
+                                @*modal-trigger*@
+                                @*Leads to delete modal*@
+                                <a href="#deleteSubcategoryModal" class="deleteSubcat btn waves-effect red darken-2 modal-trigger" data-id="@s.Id">
+                                    Delete
+                                    <i class="material-icons right">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+
+    @*Create subcategory modal*@
+    <div id="createSubcategoryModal" class="modal">
+
+        @*Create subcategory form*@
+        <form asp-action="CreateSubcategory" asp-controller="Subcategory" method="post" class="col s12">
+
+            <div class="modal-content">
+                <h4 class="center">Create new subcategory</h4>
+                <div class="row">
+
+                    <div class="input-field col s6">
+                        <select asp-for="CategoryId" class="categoryselect">
+                            <option disabled selected>Choose category</option>
+                            @foreach (var c in Model.Categories)
+                            {
+                                <option value="@c.Id">@c.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">library_books</i>
+                        <input asp-for="Name" id="icon_library_books" type="text" class="validate" required>
+                        <label asp-for="Name" for="icon_library_books">Subcategory name</label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="modal-close waves-effect btn grey">
+                    cancel
+                    <i class="material-icons right">cancel</i>
+                </a>
+                <button class="modal-close waves-effect btn green" type="submit">
+                    Create
+                    <i class="material-icons right">library_add</i>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+    @*Delete subcategory modal*@
+    <div id="deleteSubcategoryModal" class="modal">
+        <div class="modal-content">
+            <h4 class="center">This will remove all the products that are linked to this subcategory!</h4>
+            <div class="row">
+                <h5 class="center">Are you sure you want to delete all of them?</h5>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="row">
+                <div class="right">
+
+                    <form>
+                        <a class="modal-close waves-effect btn grey col">
+                            No, cancel
+                            <i class="material-icons right">cancel</i>
+                        </a>
+                        <button asp-action="DeleteSubcategory" asp-controller="Subcategory"
+                                class="modal-close btn waves-effect red darken-2 modal-trigger col" type="submit" style="margin-left:1em">
+                            Yes, delete
+                            <i class="material-icons right">delete</i>
+                        </button>
+                        <input class="deleteSubcategoryModalInput" type="hidden" name="subcategoryId" value="" />
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @*Edit subcategory modal*@
+    <div id="editSubcategoryModal" class="modal">
+        <form asp-action="UpdateSubcategory" asp-controller="Subcategory">
+            <div class="modal-content">
+                <h4 class="center">Edit Subcategory</h4>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select asp-for="CategoryId" class="categoryselect">
+                            <option disabled selected>Choose category</option>
+                            @foreach (var c in Model.Categories)
+                            {
+                                <option value="@c.Id">@c.Name</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="input-field col s6">
+                        <i class="material-icons prefix">library_books</i>
+                        <input asp-for="Name" id="edit_library_books" type="text" class="editSubcategoryModalValue validate" value="" required>
+                        <label asp-for="Name" for="edit_library_books" class="active">Change subcategory name</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="modal-close waves-effect btn grey">
+                    cancel
+                    <i class="material-icons right">cancel</i>
+                </a>
+                <button class="modal-close waves-effect btn green" type="submit">
+                    edit
+                    <i class="material-icons right">edit</i>
+                </button>
+                <input class="editSubcategoryModalInput" type="hidden" name="subcategoryId" value="" />
+            </div>
+        </form>
+    </div>
+
+</div>
+

@@ -13,7 +13,11 @@ namespace KingPIM.Web.Controllers
     {
         public IActionResult Index()
         {
-            
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Category");
+            }
+
             return View();
         }
     }
