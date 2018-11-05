@@ -58,7 +58,6 @@ namespace KingPIM.Data
             {
                 Name = "Long sleeve",
                 Products = productList,
-                AttributeGroups = attributeGroupList,
                 UpdatedDate = DateTime.Now.Date,
                 AddedDate = DateTime.Today
             };

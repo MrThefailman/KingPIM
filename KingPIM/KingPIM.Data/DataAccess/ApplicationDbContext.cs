@@ -1,4 +1,5 @@
 ﻿using KingPIM.Models;
+using KingPIM.Models.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +22,15 @@ namespace KingPIM.Data
         public DbSet<AttributeGroup> AttributeGroups { get; set; }
         public DbSet<ProductAttribute> ProductAttributes { get; set; }
         public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
+        public DbSet<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ProductAttributeValue>().HasKey(k => new { k.ProductAttributeId, k.ProductId });
+
+            modelBuilder.Entity<SubcategoryAttributeGroup>().HasKey(k => new { k.SubcategoryId, k.AttributeGroup });
         }
     }
 }

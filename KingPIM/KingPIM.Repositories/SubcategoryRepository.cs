@@ -31,7 +31,7 @@ namespace KingPIM.Repositories
                 var newSubcat = new Subcategory
                 {
                     Name = vm.Name,
-                    AttributeGroups = null,
+                    SubcategoryAttributeGroups = null,
                     AddedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Published = false,

@@ -9,7 +9,6 @@ namespace KingPIM.Models
 {
     public class ProductAttributeValue
     {
-
         public virtual ProductAttribute ProductAttribute { get; set; }
         [Key, Column(Order = 0)]
         public int ProductAttributeId { get; set; }
@@ -17,7 +16,6 @@ namespace KingPIM.Models
         [Key, Column(Order = 1)]
         public int ProductId { get; set; }
         public string Value { get; set; }
-
         
     }
 }

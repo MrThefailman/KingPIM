@@ -48,6 +48,8 @@ namespace KingPIM.Web
 
             services.AddTransient<ISubcategoryRepository, SubcategoryRepository>();
 
+            services.AddTransient<IProductRepository, ProductRepository>();
+
             services.AddTransient<IIdentitySeeder, IdentitySeeder>();
 
             services.Configure<IdentityOptions>(options =>
