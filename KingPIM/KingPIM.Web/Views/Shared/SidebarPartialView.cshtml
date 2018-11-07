@@ -2,6 +2,32 @@
 
 <div class="sidenav sidenav-fixed">
     <ul class="collapsible popout" style="margin-top: 0.5em;">
+
+        @if (ViewBag.Title != "Categories")
+        {
+            <li>
+                <a href="Category" class="btn waves-effect pink center">
+                    category view
+                </a>
+            </li>
+        }
+        @if (ViewBag.Title != "Subcategories")
+        {
+            <li>
+                <a href="Subcategory" class="btn waves-effect purple center">
+                    subcategory view
+                </a>
+            </li>
+        }
+        @if (ViewBag.Title != "Products")
+        {
+            <li>
+                <a href="Product" class="btn waves-effect deep-purple center">
+                    Product View
+                </a>
+            </li>
+        }
+
         @foreach (var c in Model.Categories)
         {
             <li>
@@ -9,25 +35,30 @@
                 <div class="collapsible-header waves-effect">@c.Name</div>
                 <div class="collapsible-body">
                     <ul class="collapsible popout">
-                        <li>
-                            
-                            <a href="Subcategory" class="btn waves-effect green center">
-                                subcategory view
-                            </a>
-                            
-                        </li>
+
                         @foreach (var s in Model.Subcategories.Where(x => x.CategoryId == c.Id))
                         {
                             <li>
                                 <div class="collapsible-header waves-effect">@s.Name</div>
+                                <div class="collapsible-body">
+                                    <ul class="collapsible popout">
+                                        @foreach (var p in Model.Products.Where(x => x.SubcategoryId == s.Id))
+                                        {
+                                            <li>
+                                                @p.Name
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
                                 <p>@s.UpdatedDate</p>
                             </li>
                         }
+
                     </ul>
                 </div>
 
             </li>
         }
-        
+
     </ul>
 </div>

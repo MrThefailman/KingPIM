@@ -1,5 +1,9 @@
 ﻿@model MainPageViewModel
 
+@{
+    ViewBag.Title = "Subcategories";
+}
+
 <partial name="SidebarPartialView" />
 
 <div class="container">
@@ -169,7 +173,7 @@
 
                     <div class="input-field col s6">
                         <i class="material-icons prefix">library_books</i>
-                        <input asp-for="Name" id="edit_library_books" type="text" class="editSubcategoryModalValue validate" value="" required>
+                        <input asp-for="Name" id="edit_library_books" type="text" class="editSubcategoryModalValue validate" value="">
                         <label asp-for="Name" for="edit_library_books" class="active">Change subcategory name</label>
                     </div>
                 </div>

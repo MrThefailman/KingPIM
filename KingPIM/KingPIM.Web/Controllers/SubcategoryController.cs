@@ -14,10 +14,13 @@ namespace KingPIM.Web.Controllers
         private ICategoryRepository categoryRepo;
         // Get access to subcategoryRepo
         private ISubcategoryRepository subcategoryRepo;
-        public SubcategoryController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository)
+        // Get access to productRepo
+        private IProductRepository productRepo;
+        public SubcategoryController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository, IProductRepository productRepository)
         {
             categoryRepo = categoryRepository;
             subcategoryRepo = subcategoryRepository;
+            productRepo = productRepository;
         }
 
         // Get all
@@ -25,10 +28,12 @@ namespace KingPIM.Web.Controllers
         {
             var categories = categoryRepo.GetCategories();
             var subcategories = subcategoryRepo.GetSubcategories();
+            var products = productRepo.GetProducts();
             var vm = new MainPageViewModel
             {
                 Categories = categories,
-                Subcategories = subcategories
+                Subcategories = subcategories,
+                Products = products
             };
 
             return View(vm);

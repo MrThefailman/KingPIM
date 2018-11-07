@@ -62,13 +62,26 @@ namespace KingPIM.Repositories
 
             if(ctxProduct != null)
             {
-                ctxProduct.Name = p.Name;
-                ctxProduct.Description = p.Description;
+                if(p.Name != null)
+                {
+                    ctxProduct.Name = p.Name;
+                }
+                if(p.Description != ctxProduct.Description)
+                {
+                    ctxProduct.Description = p.Description;
+                }
                 ctxProduct.UpdatedDate = DateTime.Now;
                 ctxProduct.Version++;
-                ctxProduct.SubcategoryId = p.SubcategoryId;
-                ctxProduct.Price = p.Price;
+                if(p.SubcategoryId != 0)
+                {
+                    ctxProduct.SubcategoryId = p.SubcategoryId;
+                }
+                if(p.Price != ctxProduct.Price)
+                {
+                    ctxProduct.Price = p.Price;
+                }
             }
+            ctx.SaveChanges();
         }
         
         // Updates publish value
@@ -76,14 +89,36 @@ namespace KingPIM.Repositories
         {
             var ctxProduct = ctx.Products.FirstOrDefault(x => x.Id.Equals(p.ProductId));
 
-            if (!ctxProduct.Published)
+            if(ctxProduct != null)
             {
-                ctxProduct.Published = true;
+                var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(ctxProduct.SubcategoryId));
+                var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(ctxSubcategory.CategoryId));
+                if (!ctxProduct.Published)
+                {
+                    ctxProduct.Published = true;
+                    if(ctxSubcategory.Published != true)
+                    {
+                        ctxSubcategory.Published = true;
+                    }
+                    if(ctxCategory.Published != true)
+                    {
+                        ctxCategory.Published = true;
+                    }
+                }
+                else
+                {
+                    ctxProduct.Published = false;
+                    if(ctxSubcategory.Products.Count(x => x.Published) == 0)
+                    {
+                        ctxSubcategory.Published = false;
+                        if(ctxCategory.Subcategories.Count(x => x.Published) == 0)
+                        {
+                            ctxCategory.Published = false;
+                        }
+                    }
+                }
             }
-            else
-            {
-                ctxProduct.Published = false;
-            }
+            
             ctx.SaveChanges();
         }
     }

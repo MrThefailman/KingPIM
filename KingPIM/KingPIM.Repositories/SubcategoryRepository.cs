@@ -59,16 +59,22 @@ namespace KingPIM.Repositories
         public void PublishSubcategory(MainPageViewModel s)
         {
             var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(s.SubcategoryId));
-
+            
             if(ctxSubcategory != null)
             {
+                var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(ctxSubcategory.CategoryId));
                 if (!ctxSubcategory.Published)
                 {
                     ctxSubcategory.Published = true;
+                    ctxCategory.Published = true;
                 }
                 else
                 {
                     ctxSubcategory.Published = false;
+                    if (ctxCategory.Subcategories.Count(x => x.Published) == 0)
+                    {
+                        ctxCategory.Published = false;
+                    }
                 }
             }
             ctx.SaveChanges();
@@ -81,10 +87,16 @@ namespace KingPIM.Repositories
 
             if(ctxSubcategory != null)
             {
-                ctxSubcategory.Name = s.Name;
+                if(s.Name != ctxSubcategory.Name)
+                {
+                    ctxSubcategory.Name = s.Name;
+                }
                 ctxSubcategory.UpdatedDate = DateTime.Now;
                 ctxSubcategory.Version++;
-                ctxSubcategory.CategoryId = s.CategoryId;
+                if(s.CategoryId != 0)
+                {
+                    ctxSubcategory.CategoryId = s.CategoryId;
+                }
             }
             ctx.SaveChanges();
         }

@@ -71,7 +71,7 @@
             $('.deleteSubcat').click(function () {
                 var subcategoryId = $(this).data('id');
                 var deleteInput = $('.deleteSubcategoryModalInput').attr('value', subcategoryId);
-            })
+            });
 
             $('.editSubcat').click(function () {
 
@@ -82,6 +82,35 @@
 
                 M.updateTextFields();
 
+            });
+
+            // Start of product JS script
+            var CreateProductModal = $('#createProductModal');
+            var CPInstances = M.Modal.init(CreateProductModal/*, options*/);
+
+            // Subcategory select
+            var subcategorySelect = $('.subcategoryselect');
+            var SSInstances = M.FormSelect.init(subcategorySelect/*, options*/);
+
+            var editProductModal = $('#editProductModal');
+            var EPInstances = M.Modal.init(editProductModal/*, options*/);
+
+            var deleteProductModal = $('#deleteProductModal');
+            var DPInstances = M.Modal.init(deleteProductModal/*, options*/);
+
+            $('.deleteProd').click(function () {
+                var productId = $(this).data('id');
+                var deleteInput = $('.deleteProductModalInput').attr('value', productId);
+            });
+
+            $('.editProd').click(function () {
+
+                var productId = $(this).data('id');
+                var productName = $(this).data('name');
+                var editInput = $('.editProductModalInput').attr('value', productId);
+                var editName = $('.editProductModalValue').attr('value', productName);
+
+                M.updateTextFields();
             });
 
         });

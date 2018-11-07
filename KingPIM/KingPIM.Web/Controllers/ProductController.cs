@@ -46,21 +46,48 @@ namespace KingPIM.Web.Controllers
         }
 
         // Create new product
-        public IActionResult NewProduct()
+        public IActionResult CreateProduct(MainPageViewModel vm)
         {
-            return View();
+            productRepo.CreateProduct(vm);
+
+            return RedirectToAction("Index");
         }
 
         // Updates single product
-        public IActionResult UpdateProduct()
+        public IActionResult UpdateProduct(MainPageViewModel vm)
         {
-            return View();
+            var product = productRepo.Products.FirstOrDefault(x => x.Id.Equals(vm.ProductId));
+
+            if(ModelState.IsValid && vm != null)
+            {
+                productRepo.EditProduct(vm);
+            }
+
+            return RedirectToAction("Index", vm);
+        }
+
+        // Updates published value
+        public IActionResult PublishProduct(MainPageViewModel vm)
+        {
+            var product = productRepo.Products.FirstOrDefault(x => x.Id.Equals(vm.ProductId));
+
+            if(ModelState.IsValid && vm != null)
+            {
+                productRepo.PublishProduct(vm);
+            }
+            return RedirectToAction("Index");
         }
 
         // Deletes product
-        public IActionResult DeleteProduct()
+        public IActionResult DeleteProduct(int productId)
         {
-            return View();
+            var delete = productRepo.DeleteProduct(productId);
+
+            if(delete != null)
+            {
+                DeleteProduct(productId);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

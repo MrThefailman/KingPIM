@@ -30,7 +30,7 @@ namespace KingPIM.Data
 
             modelBuilder.Entity<ProductAttributeValue>().HasKey(k => new { k.ProductAttributeId, k.ProductId });
 
-            modelBuilder.Entity<SubcategoryAttributeGroup>().HasKey(k => new { k.SubcategoryId, k.AttributeGroup });
+            modelBuilder.Entity<SubcategoryAttributeGroup>().HasKey(k => new { k.SubcategoryId, k.AttributeGroupId });
         }
     }
 }

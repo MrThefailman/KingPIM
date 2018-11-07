@@ -9,8 +9,19 @@ namespace KingPIM.Data.DataAccess
 {
     public class IdentitySeeder : IIdentitySeeder
     {
+        //private RoleManager roleManager;
+        //public async Task<bool> CreateAdminAccountIfEmpty()
+        //{
+        //    bool x = await _roleManager
+
+        //    return true;
+        //}
+
+
+
+
         private const string _admin = "admin";
-        private const string  _password = "buggeroff";
+        private const string _password = "buggeroff";
 
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
@@ -23,7 +34,7 @@ namespace KingPIM.Data.DataAccess
 
         public async Task<bool> CreateAdminAccountIfEmpty()
         {
-            if(!_context.Users.Any(u => u.UserName == _admin))
+            if (!_context.Users.Any(u => u.UserName == _admin))
             {
                 var user = new IdentityUser
                 {
@@ -36,7 +47,7 @@ namespace KingPIM.Data.DataAccess
                 var test = result.Succeeded;
             }
             return true;
-            
+
         }
     }
 }
