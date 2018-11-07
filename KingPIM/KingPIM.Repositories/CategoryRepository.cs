@@ -87,11 +87,12 @@ namespace KingPIM.Repositories
 
             if(ctxCategory != null)
             {
-                ctxCategory.Name = c.Name;
+                if(c.Name != ctxCategory.Name && c.Name != null)
+                {
+                    ctxCategory.Name = c.Name;
+                }
                 ctxCategory.UpdatedDate = DateTime.Now;
                 ctxCategory.Version++;
-
-                //ctx.UpdateRange();
             }
             ctx.SaveChanges();
         }

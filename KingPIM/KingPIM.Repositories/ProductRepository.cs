@@ -35,6 +35,7 @@ namespace KingPIM.Repositories
                     AddedDate = DateTime.Now,
                     UpdatedDate = DateTime.Now,
                     Published = false,
+                    Price = vm.Price,
                     Version = 1,
                     SubcategoryId = vm.SubcategoryId,
                 };
@@ -62,7 +63,7 @@ namespace KingPIM.Repositories
 
             if(ctxProduct != null)
             {
-                if(p.Name != null)
+                if(p.Name != ctxProduct.Name && p.Name != null)
                 {
                     ctxProduct.Name = p.Name;
                 }

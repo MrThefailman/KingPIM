@@ -33,7 +33,11 @@
                     @foreach (var s in Model.Subcategories)
                     {
                         <tr>
-                            <td>@s.Name</td>
+                            <td>
+                                <a asp-action="Subcategory" class="waves-effect waves-teal btn-flat" asp-route-subcategoryId="@s.Id">
+                                    @s.Name
+                                </a>
+                            </td>
                             <td>
                                 <form asp-action="PublishSubcategory" asp-controller="Subcategory">
 
@@ -92,19 +96,21 @@
                 <div class="row">
 
                     <div class="input-field col s6">
-                        <select asp-for="CategoryId" class="categoryselect">
+                        <select asp-for="CategoryId" class="categoryselect" required>
                             <option disabled selected>Choose category</option>
                             @foreach (var c in Model.Categories)
                             {
                                 <option value="@c.Id">@c.Name</option>
                             }
                         </select>
+                        <span class="helper-text" data-error="Please enter a valid category"></span>
                     </div>
 
                     <div class="input-field col s6">
                         <i class="material-icons prefix">library_books</i>
                         <input asp-for="Name" id="icon_library_books" type="text" class="validate" required>
                         <label asp-for="Name" for="icon_library_books">Subcategory name</label>
+                        <span class="helper-text" data-error="Please enter a subcategory name"></span>
                     </div>
 
                 </div>
@@ -115,7 +121,7 @@
                     cancel
                     <i class="material-icons right">cancel</i>
                 </a>
-                <button class="modal-close waves-effect btn green" type="submit">
+                <button id="createSubcategorySubmit" class="waves-effect btn green" type="submit">
                     Create
                     <i class="material-icons right">library_add</i>
                 </button>

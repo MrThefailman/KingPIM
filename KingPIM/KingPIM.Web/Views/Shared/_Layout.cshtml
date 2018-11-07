@@ -62,6 +62,13 @@
             var categorySelect = $('.categoryselect');
             var CSInstances = M.FormSelect.init(categorySelect/*, options*/);
 
+            var createSubcategorySubmit = $('#createSubcategorySubmit');
+            createSubcategorySubmit.hide();
+
+            categorySelect.on('change', () => {
+                createSubcategorySubmit.show();
+            });
+
             var editSubcategoryModal = $('#editSubcategoryModal');
             var ESMInstances = M.Modal.init(editSubcategoryModal/*, options*/);
 
@@ -92,6 +99,13 @@
             var subcategorySelect = $('.subcategoryselect');
             var SSInstances = M.FormSelect.init(subcategorySelect/*, options*/);
 
+            var createProductSubmit = $('#createProductSubmit');
+            createProductSubmit.hide();
+
+            subcategorySelect.on('change', () => {
+                createProductSubmit.show();
+            });
+
             var editProductModal = $('#editProductModal');
             var EPInstances = M.Modal.init(editProductModal/*, options*/);
 
@@ -105,12 +119,19 @@
 
             $('.editProd').click(function () {
 
+                $('.editProductModalDescription').empty();
                 var productId = $(this).data('id');
                 var productName = $(this).data('name');
+                var productPrice = $(this).data('price');
+                var productDescription = $(this).data('description');
                 var editInput = $('.editProductModalInput').attr('value', productId);
                 var editName = $('.editProductModalValue').attr('value', productName);
+                var editPrice = $('.editProductModalPrice').attr('value', productPrice);
+                //var editDescription = $('.editProductModalDescription').append(productDescription);
+                var editDescription = $('.editProductModalDescription').val(productDescription);
 
                 M.updateTextFields();
+                M.textareaAutoResize($('.editProductModalDescription'));
             });
 
         });

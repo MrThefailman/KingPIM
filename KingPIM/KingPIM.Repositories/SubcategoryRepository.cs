@@ -87,7 +87,7 @@ namespace KingPIM.Repositories
 
             if(ctxSubcategory != null)
             {
-                if(s.Name != ctxSubcategory.Name)
+                if(s.Name != ctxSubcategory.Name && s.Name != null)
                 {
                     ctxSubcategory.Name = s.Name;
                 }

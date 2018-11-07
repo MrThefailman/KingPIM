@@ -40,9 +40,11 @@ namespace KingPIM.Web.Controllers
         }
 
         // Will return single Subcategory
-        public IActionResult GetSubCategory()
+        public IActionResult Subcategory(int subcategoryId)
         {
-            return View();
+            var subcategory = subcategoryRepo.Subcategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
+            
+            return View(subcategory);
         }
 
         // Create new Subcategory

@@ -96,6 +96,7 @@
                         <i class="material-icons prefix">library_books</i>
                         <input asp-for="Name" id="icon_library_books" type="text" class="validate" required>
                         <label asp-for="Name" for="icon_library_books">Category name</label>
+                        <span class="helper-text" data-error="Please enter a category name"></span>
                     </div>
                 </div>
             </div>
@@ -105,7 +106,7 @@
                     cancel
                     <i class="material-icons right">cancel</i>
                 </a>
-                <button class="modal-close waves-effect btn green" type="submit">
+                <button class="waves-effect btn green" type="submit">
                     Create
                     <i class="material-icons right">library_add</i>
                 </button>
@@ -153,7 +154,7 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <i class="material-icons prefix">library_books</i>
-                        <input asp-for="Name" id="edit_library_books" type="text" class="editCategoryModalValue validate" value="" required>
+                        <input asp-for="Name" id="edit_library_books" type="text" class="editCategoryModalValue validate" value="">
                         <label asp-for="Name" for="edit_library_books" class="active">Change category name</label>
                     </div>
                 </div>
