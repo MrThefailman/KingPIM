@@ -20,11 +20,13 @@ namespace KingPIM.Models.ViewModels
         public IEnumerable<AttributeGroup> AttributeGroups { get; set; }
 
         // To read product attributes
-        public IEnumerable<ProductAttribute> productAttributes { get; set; }
+        public IEnumerable<ProductAttribute> ProductAttributes { get; set; }
         
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public string AttributeGroupName { get; set; }
 
         public string Description { get; set; }
 
@@ -44,9 +46,9 @@ namespace KingPIM.Models.ViewModels
 
         public int ProductId { get; set; }
 
-        public int attributeGroupId { get; set; }
+        public int AttributeGroupId { get; set; }
 
-        public int productAttributeId { get; set; }
+        public List<int> ProductAttributeId { get; set; }
 
     }
 }

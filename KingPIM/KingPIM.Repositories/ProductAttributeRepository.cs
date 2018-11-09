@@ -50,7 +50,7 @@ namespace KingPIM.Repositories
 
         public void EditProductAttribute(MainPageViewModel pa)
         {
-            var ctxProdAttr = ctx.ProductAttributes.FirstOrDefault(x => x.Id.Equals(pa.productAttributeId));
+            var ctxProdAttr = ctx.ProductAttributes.FirstOrDefault(x => x.Id.Equals(pa.ProductAttributeId));
 
             if(ctxProdAttr != null)
             {

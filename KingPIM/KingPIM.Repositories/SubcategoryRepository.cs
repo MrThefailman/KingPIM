@@ -63,6 +63,7 @@ namespace KingPIM.Repositories
             if(ctxSubcategory != null)
             {
                 var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(ctxSubcategory.CategoryId));
+                var Category = Subcategories.Where(x => x.CategoryId == ctxCategory.Id);
                 if (!ctxSubcategory.Published)
                 {
                     ctxSubcategory.Published = true;
@@ -71,7 +72,7 @@ namespace KingPIM.Repositories
                 else
                 {
                     ctxSubcategory.Published = false;
-                    if (ctxCategory.Subcategories.Count(x => x.Published) == 0)
+                    if (Category.Count(x => x.Published) == 0)
                     {
                         ctxCategory.Published = false;
                     }

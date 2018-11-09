@@ -52,7 +52,7 @@ namespace KingPIM.Repositories
         
         public void EditAttributeGroup(MainPageViewModel ag)
         {
-            var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(ag.attributeGroupId));
+            var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(ag.AttributeGroupId));
 
             if(ctxAttrGroup != null)
             {

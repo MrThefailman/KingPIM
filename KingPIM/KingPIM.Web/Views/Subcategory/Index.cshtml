@@ -95,6 +95,7 @@
                 <h4 class="center">Create new subcategory</h4>
                 <div class="row">
 
+                    @*Choose category*@
                     <div class="input-field col s6">
                         <select asp-for="CategoryId" class="categoryselect" required>
                             <option disabled selected>Choose category</option>
@@ -106,6 +107,7 @@
                         <span class="helper-text" data-error="Please enter a valid category"></span>
                     </div>
 
+                    @*Choose subcategory name*@
                     <div class="input-field col s6">
                         <i class="material-icons prefix">library_books</i>
                         <input asp-for="Name" id="icon_library_books" type="text" class="validate" required>
@@ -113,6 +115,30 @@
                         <span class="helper-text" data-error="Please enter a subcategory name"></span>
                     </div>
 
+                </div>
+                @if (Model.ProductAttributes != null && Model.ProductAttributes.Any())
+                {
+                    <div class="row">
+
+                        <div class="input-field col s6">
+                            <select multiple>
+                                <option disabled selected>Choose attributes</option>
+                                @foreach (var a in Model.ProductAttributes)
+                                {
+                                    <option>@a.Name</option>
+                                }
+                            </select>
+                            <label>Choose your attributes</label>
+                        </div>
+
+                    </div>
+                }
+
+                <div class="row">
+                    <a href="#createAttributeModal" class="createAttribute btn waves-effect small modal-trigger">
+                        Create new attribute
+                        <i class="material-icons right">playlist_add</i>
+                    </a>
                 </div>
             </div>
 
@@ -196,6 +222,14 @@
                 </button>
                 <input class="editSubcategoryModalInput" type="hidden" name="subcategoryId" value="" />
             </div>
+        </form>
+    </div>
+
+    @*Create attribute modal*@
+    <div id="createAttributeModal" class="modal">
+        <h2>Welcome to the attribute modal!</h2>
+        <form name="create attribute">
+
         </form>
     </div>
 

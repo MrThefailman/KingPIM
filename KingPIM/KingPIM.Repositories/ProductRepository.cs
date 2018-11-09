@@ -23,6 +23,9 @@ namespace KingPIM.Repositories
             return Products;
         }
 
+        // Read all subcategories
+        public IEnumerable<Subcategory> Subcategories => ctx.Subcategories;
+
         // Add product to DB
         public void CreateProduct(MainPageViewModel vm)
         {
@@ -93,7 +96,9 @@ namespace KingPIM.Repositories
             if(ctxProduct != null)
             {
                 var ctxSubcategory = ctx.Subcategories.FirstOrDefault(x => x.Id.Equals(ctxProduct.SubcategoryId));
+                var Subcategory = Products.Where(x => x.SubcategoryId == ctxSubcategory.Id);
                 var ctxCategory = ctx.Categories.FirstOrDefault(x => x.Id.Equals(ctxSubcategory.CategoryId));
+                var Category = Subcategories.Where(x => x.CategoryId == ctxCategory.Id);
                 if (!ctxProduct.Published)
                 {
                     ctxProduct.Published = true;
@@ -109,10 +114,10 @@ namespace KingPIM.Repositories
                 else
                 {
                     ctxProduct.Published = false;
-                    if(ctxSubcategory.Products.Count(x => x.Published) == 0)
+                    if(Subcategory.Count(x => x.Published) == 0)
                     {
                         ctxSubcategory.Published = false;
-                        if(ctxCategory.Subcategories.Count(x => x.Published) == 0)
+                        if(Category.Count(x => x.Published) == 0)
                         {
                             ctxCategory.Published = false;
                         }
