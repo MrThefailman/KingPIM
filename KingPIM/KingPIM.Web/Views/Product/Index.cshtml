@@ -36,25 +36,40 @@
                         <tr>
                             <td>@p.Name</td>
                             <td>
-                                <form asp-action="PublishProduct" asp-controller="Product">
+                                @if (!User.IsInRole("Editor"))
+                                {
+                                    <form asp-action="PublishProduct" asp-controller="Product">
 
+                                        @if (p.Published)
+                                        {
+                                            <button class="btn waves-effect green darken-1" type="submit">
+                                                Published
+                                                <i class="material-icons right">check</i>
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn waves-effect red" type="submit">
+                                                Unpublished
+                                                <i class="material-icons right">lock_outline</i>
+                                            </button>
+                                        }
+                                        <input type="hidden" name="productId" value="@p.Id" />
+
+                                    </form>
+                                }
+                                else
+                                {
                                     @if (p.Published)
                                     {
-                                        <button class="btn waves-effect green darken-1" type="submit">
-                                            Published
-                                            <i class="material-icons right">check</i>
-                                        </button>
+                                        <p>Published</p>
                                     }
                                     else
                                     {
-                                        <button class="btn waves-effect red" type="submit">
-                                            Unpublished
-                                            <i class="material-icons right">lock_outline</i>
-                                        </button>
+                                        <p>Unpublished</p>
                                     }
-                                    <input type="hidden" name="productId" value="@p.Id" />
+                                }
 
-                                </form>
 
                             </td>
                             <td>@String.Format("{0:C}", p.Price)</td>

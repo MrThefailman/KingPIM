@@ -49,6 +49,8 @@ namespace KingPIM.Models.ViewModels
         public int AttributeGroupId { get; set; }
 
         public List<int> ProductAttributeId { get; set; }
+        
+        public List<string> AttributeName { get; set; }
 
     }
 }
