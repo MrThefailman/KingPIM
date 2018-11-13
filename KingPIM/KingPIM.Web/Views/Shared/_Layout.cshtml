@@ -133,6 +133,10 @@
                 M.textareaAutoResize($('.editProductModalDescription'));
             });
 
+            // Existing attributes select
+            var attributeSelect = $('#attribute-select');
+            var ASInstances = M.FormSelect.init(attributeSelect/*, options*/);
+
             // Create attribute modal
             var createAttributeModal = $('#createAttributeModal');
             var CAMInstances = M.Modal.init(createAttributeModal/*, options*/);
@@ -142,16 +146,8 @@
             var ATSInstances = M.FormSelect.init(attrTypeSelect/*, options*/);
 
             var createAttributeName = $('#create-attribute-name');
-
-            $('#create-attribute-button').hide();
-
+            
             // Create attribute function
-            attrTypeSelect.on('change', () => {
-                if (attrTypeSelect != null && createAttributeName != null) {
-                    $('#create-attribute-button').show();
-                }
-            });
-
             $('#create-attribute-button').click(function () {
                 var attributeName = $('#create-attribute-name').val();
                 var attributeValue = attrTypeSelect.val();
@@ -161,7 +157,6 @@
                     + attributeName
                     + '</span><i class="material-icons close">close</i></div>'
                 );
-                $('#create-attribute-button').hide();
                 $('#create-attribute-name').val('');
             });
 
