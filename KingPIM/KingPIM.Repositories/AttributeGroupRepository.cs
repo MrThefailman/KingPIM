@@ -38,7 +38,7 @@ namespace KingPIM.Repositories
                 };
                 ctx.AttributeGroups.Add(newAttrGroup);
 
-                //ctx.SaveChanges();
+                ctx.SaveChanges();
                 id = newAttrGroup.Id;
             }
             return id;

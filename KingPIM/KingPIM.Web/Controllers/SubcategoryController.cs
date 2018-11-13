@@ -20,13 +20,16 @@ namespace KingPIM.Web.Controllers
         private IProductAttributeRepository productAttributeRepo;
         // Get access to AttributeGroupRepo
         private IAttributeGroupRepository attributeGroupRepo;
-        public SubcategoryController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository, IProductRepository productRepository, IProductAttributeRepository productAttributeRepository, IAttributeGroupRepository attributeGroupRepository)
+        // Get access to SubcategoryAttributegroupRepo
+        private ISubcategoryAttributeGroup subcategoryAttributeGroupRepo;
+        public SubcategoryController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository, IProductRepository productRepository, IProductAttributeRepository productAttributeRepository, IAttributeGroupRepository attributeGroupRepository, ISubcategoryAttributeGroup subcategoryAttributeGroupRepository)
         {
             categoryRepo = categoryRepository;
             subcategoryRepo = subcategoryRepository;
             productRepo = productRepository;
             productAttributeRepo = productAttributeRepository;
             attributeGroupRepo = attributeGroupRepository;
+            subcategoryAttributeGroupRepo = subcategoryAttributeGroupRepository;
         }
 
         // Get all
@@ -62,7 +65,9 @@ namespace KingPIM.Web.Controllers
             
             productAttributeRepo.CreateProductAttribute(vm, AttrGroupId);
 
-            subcategoryRepo.CreateSubcategory(vm);
+            var SubCatId = subcategoryRepo.CreateSubcategory(vm);
+
+            subcategoryAttributeGroupRepo.CreateSubcategoryAttributeGroup(AttrGroupId, SubCatId);
             
             return RedirectToAction("Index");
         }

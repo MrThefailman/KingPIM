@@ -43,9 +43,9 @@ namespace KingPIM.Repositories
                     };
                     ctx.ProductAttributes.Add(newProdAttr);
 
-                    var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(AttrGroupId));
+                    //var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(AttrGroupId));
 
-                    //ctx.SaveChanges();
+                    ctx.SaveChanges();
                 }
             }
         }

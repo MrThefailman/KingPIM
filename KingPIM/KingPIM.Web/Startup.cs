@@ -54,8 +54,11 @@ namespace KingPIM.Web
 
             services.AddTransient<IAttributeGroupRepository, AttributeGroupRepository>();
 
+            services.AddTransient<ISubcategoryAttributeGroup, SubcategoryAttributeGroupRepository>();
+
             services.AddTransient<IIdentitySeeder, IdentitySeeder>();
 
+            
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = false;
