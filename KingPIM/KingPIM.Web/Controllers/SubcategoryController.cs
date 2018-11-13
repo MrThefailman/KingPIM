@@ -18,12 +18,15 @@ namespace KingPIM.Web.Controllers
         private IProductRepository productRepo;
         // Get access to ProductAttributeRepo
         private IProductAttributeRepository productAttributeRepo;
-        public SubcategoryController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository, IProductRepository productRepository, IProductAttributeRepository productAttributeRepository)
+        // Get access to AttributeGroupRepo
+        private IAttributeGroupRepository attributeGroupRepo;
+        public SubcategoryController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository, IProductRepository productRepository, IProductAttributeRepository productAttributeRepository, IAttributeGroupRepository attributeGroupRepository)
         {
             categoryRepo = categoryRepository;
             subcategoryRepo = subcategoryRepository;
             productRepo = productRepository;
             productAttributeRepo = productAttributeRepository;
+            attributeGroupRepo = attributeGroupRepository;
         }
 
         // Get all
@@ -55,13 +58,12 @@ namespace KingPIM.Web.Controllers
         // Create new Subcategory
         public IActionResult CreateSubcategory(MainPageViewModel vm)
         {
+            var AttrGroupId = attributeGroupRepo.CreateAttributeGroup(vm);
+            
+            productAttributeRepo.CreateProductAttribute(vm, AttrGroupId);
+
             subcategoryRepo.CreateSubcategory(vm);
-
-            //if(vm.ProductAttributes != null)
-            //{
-            //    productAttributeRepo.CreateProductAttribute(vm);
-            //}
-
+            
             return RedirectToAction("Index");
         }
 

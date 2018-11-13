@@ -24,19 +24,24 @@ namespace KingPIM.Repositories
         }
 
         // Adds attribute groups to DB
-        public void CreateAttribute(MainPageViewModel vm)
+        public int CreateAttributeGroup(MainPageViewModel vm)
         {
-            if(vm.Id == 0)
+            int id = 0;
+            var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(vm.AttributeGroupId));
+            if(vm.Id == 0 && ctxAttrGroup == null || vm.Id != ctxAttrGroup.Id)
             {
                 var newAttrGroup = new AttributeGroup
                 {
-                    Name = vm.Name,
-                    Description = vm.Description,
+                    Name = vm.AttributeGroupName,
+                    Description = vm.AttributeName,
                     ProductAttributes = null
                 };
                 ctx.AttributeGroups.Add(newAttrGroup);
+
+                //ctx.SaveChanges();
+                id = newAttrGroup.Id;
             }
-            ctx.SaveChanges();
+            return id;
         }
 
         public AttributeGroup DeleteAttributeGroup(int attributeGroupId)

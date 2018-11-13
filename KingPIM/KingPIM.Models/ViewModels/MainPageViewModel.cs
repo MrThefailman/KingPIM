@@ -50,7 +50,7 @@ namespace KingPIM.Models.ViewModels
 
         public List<int> ProductAttributeId { get; set; }
         
-        public List<string> AttributeName { get; set; }
+        public string AttributeName { get; set; }
 
     }
 }

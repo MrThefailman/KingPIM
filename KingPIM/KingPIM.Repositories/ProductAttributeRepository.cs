@@ -22,19 +22,32 @@ namespace KingPIM.Repositories
             return ProductAttributes;
         }
 
-        public void CreateProductAttribute(MainPageViewModel pa)
+        public void CreateProductAttribute(MainPageViewModel pa, int AttrGroupId)
         {
             if(pa.Id == 0)
             {
-                var newProdAttr = new ProductAttribute
+                var AttributeNames = pa.AttributeName.Split("|");
+
+                foreach (var an in AttributeNames)
                 {
-                    Name = pa.Name,
-                    Description = pa.Description,
-                    Type = pa.Type
-                };
-                ctx.ProductAttributes.Add(newProdAttr);
+                    var NameType = an.Split("=");
+
+                    var AttrName = NameType[0].ToString();
+                    var AttrType = NameType[1].ToString();
+
+                    var newProdAttr = new ProductAttribute
+                    {
+                        Name = AttrName,
+                        Type = AttrType,
+                        AttributeGroupId = AttrGroupId
+                    };
+                    ctx.ProductAttributes.Add(newProdAttr);
+
+                    var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(AttrGroupId));
+
+                    //ctx.SaveChanges();
+                }
             }
-            ctx.SaveChanges();
         }
 
         public ProductAttribute DeleteProductAttribute(int productAttributeId)

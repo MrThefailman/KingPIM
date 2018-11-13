@@ -11,7 +11,7 @@ namespace KingPIM.Repositories
         IEnumerable<Subcategory> Subcategories { get; }
         IEnumerable<Subcategory> GetSubcategories();
 
-        void CreateSubcategory(MainPageViewModel vm);
+        int CreateSubcategory(MainPageViewModel vm);
 
         Subcategory DeleteSubcategory(int subcategoryId);
 

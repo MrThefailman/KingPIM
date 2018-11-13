@@ -11,7 +11,7 @@ namespace KingPIM.Repositories
         IEnumerable<ProductAttribute> ProductAttributes { get; }
         IEnumerable<ProductAttribute> GetProductAttributes();
 
-        void CreateProductAttribute(MainPageViewModel pa);
+        void CreateProductAttribute(MainPageViewModel pa, int NewId);
 
         ProductAttribute DeleteProductAttribute(int productAttributeId);
 

@@ -29,27 +29,27 @@
             //Start of Category JS script
             var createCategoryModal = $('#createCategoryModal');
             var CCMInstances = M.Modal.init(createCategoryModal/*, options*/);
-            
+
             var deleteCategoryModal = $('#deleteCategoryModal');
             var DCMInstances = M.Modal.init(deleteCategoryModal/*, options*/);
 
             var editCategoryModal = $('#editCategoryModal');
             var ECMInstances = M.Modal.init(editCategoryModal/*, options*/);
 
-            $('.deleteCat').click(function() {
-                
+            $('.deleteCat').click(function () {
+
                 var categoryId = $(this).data('id');
                 var deleteInput = $('.deleteCategoryModalInput').attr('value', categoryId);
-                
+
             });
 
-            $('.editCat').click(function() {
-                
+            $('.editCat').click(function () {
+
                 var categoryId = $(this).data('id');
                 var categoryName = $(this).data('name');
                 var editInput = $('.editCategoryModalInput').attr('value', categoryId);
                 var editName = $('.editCategoryModalValue').attr('value', categoryName);
-                
+
                 M.updateTextFields();
 
             });
@@ -127,16 +127,71 @@
                 var editInput = $('.editProductModalInput').attr('value', productId);
                 var editName = $('.editProductModalValue').attr('value', productName);
                 var editPrice = $('.editProductModalPrice').attr('value', productPrice);
-                //var editDescription = $('.editProductModalDescription').append(productDescription);
                 var editDescription = $('.editProductModalDescription').val(productDescription);
 
                 M.updateTextFields();
                 M.textareaAutoResize($('.editProductModalDescription'));
             });
 
-            // Create atribute
+            // Create attribute modal
             var createAttributeModal = $('#createAttributeModal');
             var CAMInstances = M.Modal.init(createAttributeModal/*, options*/);
+
+            // Attribute type selector
+            var attrTypeSelect = $('.attrTypeSelect');
+            var ATSInstances = M.FormSelect.init(attrTypeSelect/*, options*/);
+
+            var createAttributeName = $('#create-attribute-name');
+
+            $('#create-attribute-button').hide();
+
+            // Create attribute function
+            attrTypeSelect.on('change', () => {
+                if (attrTypeSelect != null && createAttributeName != null) {
+                    $('#create-attribute-button').show();
+                }
+            });
+
+            $('#create-attribute-button').click(function () {
+                var attributeName = $('#create-attribute-name').val();
+                var attributeValue = attrTypeSelect.val();
+
+                $('#attribute-container').append(
+                    '<div class="chip"><span class="value" data-value="' + attributeValue + '">'
+                    + attributeName
+                    + '</span><i class="material-icons close">close</i></div>'
+                );
+                $('#create-attribute-button').hide();
+                $('#create-attribute-name').val('');
+            });
+
+            var attrGroup = $('#attr-group');
+            attrGroup.hide();
+
+            // Save attributes function
+            $('#save-attributes').click(function () {
+                var sendToSubcategory = $('#attribute-container').children().appendTo('#sub-attribute-container');
+
+                var test = $('#sub-attribute-container').children();
+
+                var attrArray = [];
+
+                $.each(test, function (i, attribute) {
+                    var text = $(attribute).find('span.value').text();
+                    var value = $(attribute).find('span.value').data('value');
+                    if (text && value) {
+                        attrArray.push(text + '=' + value);
+                        console.log(text + '=' + value);
+                    }
+                });
+
+                var stringvalue = attrArray.join('|');
+
+                $('#attribute-container-input').attr('value', stringvalue);
+
+                attrGroup.show();
+
+            });
 
         });
 

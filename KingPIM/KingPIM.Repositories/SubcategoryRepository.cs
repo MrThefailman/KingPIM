@@ -24,8 +24,9 @@ namespace KingPIM.Repositories
         }
 
         // Add subcategory to DB
-        public void CreateSubcategory(MainPageViewModel vm)
+        public int CreateSubcategory(MainPageViewModel vm)
         {
+            int Id = 0;
             if(vm.Id == 0)
             {
                 var newSubcat = new Subcategory
@@ -39,8 +40,10 @@ namespace KingPIM.Repositories
                     CategoryId = vm.CategoryId
                 };
                 ctx.Subcategories.Add(newSubcat);
+                ctx.SaveChanges();
+                Id = newSubcat.Id;
             }
-            ctx.SaveChanges();
+            return Id;
         }
 
         // Deletes subcategory from DB

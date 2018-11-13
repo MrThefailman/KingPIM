@@ -10,14 +10,6 @@ namespace KingPIM.Data.DataAccess
 {
     public class IdentitySeeder : IIdentitySeeder
     {
-        //private RoleManager roleManager;
-        //public async Task<bool> CreateAdminAccountIfEmpty()
-        //{
-        //    bool x = await _roleManager
-
-        //    return true;
-        //}
-
         private const string _admin = "admin";
         private const string _password = "buggeroff";
 
@@ -55,8 +47,7 @@ namespace KingPIM.Data.DataAccess
 
                 var result = await _userManager.CreateAsync(user, _password);
                 var test = await _userManager.AddToRoleAsync(user, "Admin");
-                //var done = test.Succeeded;
-            }/*result.Succeeded;*/
+            }
 
             var publisher = await _roleManager.RoleExistsAsync("Publisher");
             if (!publisher)

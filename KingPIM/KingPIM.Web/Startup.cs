@@ -50,6 +50,10 @@ namespace KingPIM.Web
 
             services.AddTransient<IProductRepository, ProductRepository>();
 
+            services.AddTransient<IProductAttributeRepository, ProductAttributeRepository>();
+
+            services.AddTransient<IAttributeGroupRepository, AttributeGroupRepository>();
+
             services.AddTransient<IIdentitySeeder, IdentitySeeder>();
 
             services.Configure<IdentityOptions>(options =>

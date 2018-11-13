@@ -11,7 +11,7 @@ namespace KingPIM.Repositories
         IEnumerable<AttributeGroup> AttributeGroups { get; }
         IEnumerable<AttributeGroup> GetAttributeGroups();
 
-        void CreateAttribute(MainPageViewModel vm);
+        int CreateAttributeGroup(MainPageViewModel vm);
 
         AttributeGroup DeleteAttributeGroup(int attributeGroupId);
 
