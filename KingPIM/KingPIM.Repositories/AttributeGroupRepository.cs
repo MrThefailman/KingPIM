@@ -26,14 +26,19 @@ namespace KingPIM.Repositories
         // Adds attribute groups to DB
         public int CreateAttributeGroup(MainPageViewModel vm)
         {
+            var part = vm.AttributeGroupName.Split("%");
+
+            var groupName = part[0];
+            var GroupDescription = part[1];
+
             int id = 0;
             var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(vm.AttributeGroupId));
             if(vm.Id == 0 && ctxAttrGroup == null || vm.Id != ctxAttrGroup.Id)
             {
                 var newAttrGroup = new AttributeGroup
                 {
-                    Name = vm.AttributeGroupName,
-                    Description = vm.AttributeName,
+                    Name = groupName,
+                    Description = GroupDescription,
                     ProductAttributes = null
                 };
                 ctx.AttributeGroups.Add(newAttrGroup);
@@ -43,7 +48,7 @@ namespace KingPIM.Repositories
             }
             return id;
         }
-
+         // Deletes the attributegroup
         public AttributeGroup DeleteAttributeGroup(int attributeGroupId)
         {
             var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(attributeGroupId));
@@ -55,6 +60,7 @@ namespace KingPIM.Repositories
             return ctxAttrGroup;
         }
         
+        // Updates the attributegroup
         public void EditAttributeGroup(MainPageViewModel ag)
         {
             var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(ag.AttributeGroupId));

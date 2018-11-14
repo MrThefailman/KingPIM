@@ -136,7 +136,7 @@
             // Existing attributes select
             var attributeSelect = $('#attribute-select');
             var ASInstances = M.FormSelect.init(attributeSelect/*, options*/);
-
+            
             // Create attribute modal
             var createAttributeModal = $('#createAttributeModal');
             var CAMInstances = M.Modal.init(createAttributeModal/*, options*/);
@@ -146,46 +146,111 @@
             var ATSInstances = M.FormSelect.init(attrTypeSelect/*, options*/);
 
             var createAttributeName = $('#create-attribute-name');
-            
+
+            // choose existing attributegroups
+            attributeSelect.on('change', function () {
+                var value = $(this).val();
+
+                $('#sub-attribute-container').empty();
+
+                //console.log(value);
+
+                var attrConInput = $('#attribute-container-input');
+                console.log(attrConInput.val() + value);
+
+                //console.log(attrConInput.val());
+
+                attrConInput.val(value);
+                
+                var part = value.split('%');
+
+                var name = part[0];
+                var data = part[1];
+
+                $('#sub-attribute-container').append(
+                    '<div class="chip"><span class="value" data-value="' + data + '">'
+                    + name
+                    + '</span><i class="material-icons close">close</i></div>'
+                );
+            });
+
+
             // Create attribute function
-            $('#create-attribute-button').click(function () {
+            $('button#create-attribute-button').click(function () {
                 var attributeName = $('#create-attribute-name').val();
-                var attributeValue = attrTypeSelect.val();
+                var attributeValue = $('#attributeType-select').val();
 
                 $('#attribute-container').append(
                     '<div class="chip"><span class="value" data-value="' + attributeValue + '">'
                     + attributeName
                     + '</span><i class="material-icons close">close</i></div>'
                 );
+
+
                 $('#create-attribute-name').val('');
             });
 
-            var attrGroup = $('#attr-group');
-            attrGroup.hide();
 
             // Save attributes function
             $('#save-attributes').click(function () {
-                var sendToSubcategory = $('#attribute-container').children().appendTo('#sub-attribute-container');
 
-                var test = $('#sub-attribute-container').children();
+                $('#sub-attribute-container').empty();
+
+                var test = $('#attribute-container').children();
+
+                //var sendToSubcategory = $('#attribute-container').children().appendTo('#sub-attribute-container');
+
+                var attributeGroupName = $('#attribute-group-name').val();
+
+                //var test = $('#sub-attribute-container').children();
 
                 var attrArray = [];
 
                 $.each(test, function (i, attribute) {
                     var text = $(attribute).find('span.value').text();
                     var value = $(attribute).find('span.value').data('value');
-                    if (text && value) {
+                    if (text && value && attributeGroupModal) {
                         attrArray.push(text + '=' + value);
                         console.log(text + '=' + value);
                     }
                 });
 
+                console.log(attrArray);
+
                 var stringvalue = attrArray.join('|');
 
-                $('#attribute-container-input').attr('value', stringvalue);
+                console.log(attributeGroupName + '%' + stringvalue);
 
-                attrGroup.show();
+                var AttrConInput = $('#attribute-container-input')
 
+                AttrConInput.attr('value', attributeGroupName + '%' + stringvalue);
+
+                $('#sub-attribute-container').append(
+                    '<div class="chip"><span class="value" data-value="' + stringvalue + '">'
+                    + attributeGroupName
+                    + '</span><i class="material-icons close">close</i></div>'
+                );
+
+            });
+
+            var attributeGroupModal = $('#createAttributeGroupModal');
+            var AGMInstances = M.Modal.init(attributeGroupModal/*, options*/);
+
+            var addAttributeGroup = $('#add-attribute-group');
+
+            addAttributeGroup.click(function () {
+                var AttrGroupAttributeName = $('#AttrGroup-attribute-name').val();
+                var attributeTypeGroup = $('#attributeType-group').val();
+
+                $('#attribute-group-attributes').append(
+                    '<div class="chip"><span class="value" data-value="' + attributeTypeGroup + '">'
+                    + AttrGroupAttributeName
+                    + '</span><i class="material-icons close">close</i></div>'
+                );
+
+
+                $('#AttrGroup-attribute-name').val('');
+                attribute - container
             });
 
         });

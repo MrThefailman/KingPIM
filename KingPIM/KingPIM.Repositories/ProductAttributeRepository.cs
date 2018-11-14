@@ -26,9 +26,15 @@ namespace KingPIM.Repositories
         {
             if(pa.Id == 0)
             {
-                var AttributeNames = pa.AttributeName.Split("|");
+                var attributeGroup = pa.AttributeGroupName.Split("%");
 
-                foreach (var an in AttributeNames)
+                var attributes = attributeGroup[1];
+
+                var attributeNames = attributes.Split("|");
+
+                //var AttributeNames = pa.AttributeName.Split("|");
+
+                foreach (var an in attributeNames)
                 {
                     var NameType = an.Split("=");
 

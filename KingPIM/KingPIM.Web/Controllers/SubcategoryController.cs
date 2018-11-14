@@ -39,12 +39,14 @@ namespace KingPIM.Web.Controllers
             var subcategories = subcategoryRepo.GetSubcategories();
             var products = productRepo.GetProducts();
             var productAttributes = productAttributeRepo.GetProductAttributes();
+            var attributeGroups = attributeGroupRepo.GetAttributeGroups();
             var vm = new MainPageViewModel
             {
                 Categories = categories,
                 Subcategories = subcategories,
                 Products = products,
-                ProductAttributes = productAttributes
+                ProductAttributes = productAttributes,
+                AttributeGroups = attributeGroups
             };
 
             return View(vm);
@@ -53,14 +55,17 @@ namespace KingPIM.Web.Controllers
         // Will return single Subcategory
         public IActionResult Subcategory(int subcategoryId)
         {
-            var subcategory = subcategoryRepo.Subcategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
-
-            return View(subcategory.Id);
+            return View();
         }
 
         // Create new Subcategory
         public IActionResult CreateSubcategory(MainPageViewModel vm)
         {
+            //var attributeParts = vm.AttributeGroupName.Split("%");
+
+            //var AttrGroup = attributeParts[0];
+            //var ProdAttr = attributeParts[1];
+
             var AttrGroupId = attributeGroupRepo.CreateAttributeGroup(vm);
             
             productAttributeRepo.CreateProductAttribute(vm, AttrGroupId);

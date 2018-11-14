@@ -42,6 +42,7 @@ namespace KingPIM.Web.Controllers
         // Create new Attributegroup
         public IActionResult NewAttributeGroup()
         {
+
             return View();
         }
 

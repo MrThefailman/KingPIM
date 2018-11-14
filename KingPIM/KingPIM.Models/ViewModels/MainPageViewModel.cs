@@ -40,6 +40,8 @@ namespace KingPIM.Models.ViewModels
 
         public Category Category { get; set; }
 
+        public AttributeGroup AttributeGroup { get; set; }
+
         public int CategoryId { get; set; }
 
         public int SubcategoryId { get; set; }
@@ -48,7 +50,7 @@ namespace KingPIM.Models.ViewModels
 
         public int AttributeGroupId { get; set; }
 
-        public List<int> ProductAttributeId { get; set; }
+        public int ProductAttributeId { get; set; }
         
         public string AttributeName { get; set; }
 
