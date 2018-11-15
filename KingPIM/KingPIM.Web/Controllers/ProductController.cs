@@ -16,11 +16,23 @@ namespace KingPIM.Web.Controllers
         private ISubcategoryRepository subcategoryRepo;
         // Get access to productRepo
         private IProductRepository productRepo;
-        public ProductController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository, IProductRepository productRepository)
+        // Get access to product attributes
+        private IProductAttributeRepository prodAttrRepo;
+        // Get access to attributegroups
+        private IAttributeGroupRepository attrGroupRepo;
+        // Get access to subcategoryAttributeGroups
+        private ISubcategoryAttributeGroup subAttrGroupRepo;
+        //Get access to ProductAttributeValues
+        private IProductAttributeValueRepository prodAttrValueRepo;
+        public ProductController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository, IProductRepository productRepository, IProductAttributeRepository productAttributeRepository, ISubcategoryAttributeGroup subcategoryAttributeGroup, IAttributeGroupRepository attributeGroupRepository, IProductAttributeValueRepository productAttributeValueRepository)
         {
             categoryRepo = categoryRepository;
             subcategoryRepo = subcategoryRepository;
             productRepo = productRepository;
+            prodAttrRepo = productAttributeRepository;
+            subAttrGroupRepo = subcategoryAttributeGroup;
+            attrGroupRepo = attributeGroupRepository;
+            prodAttrValueRepo = productAttributeValueRepository;
         }
         // Get all
         public IActionResult Index()
@@ -28,12 +40,18 @@ namespace KingPIM.Web.Controllers
             var categories = categoryRepo.GetCategories();
             var subcategories = subcategoryRepo.GetSubcategories();
             var products = productRepo.GetProducts();
+            var prodAttributes = prodAttrRepo.GetProductAttributes();
+            var AttrGroup = attrGroupRepo.GetAttributeGroups();
+            var subAttrGroups = subAttrGroupRepo.GetSubcategoryAttributeGroups();
 
             var vm = new MainPageViewModel
             {
                 Categories = categories,
                 Subcategories = subcategories,
-                Products = products
+                Products = products,
+                ProductAttributes = prodAttributes,
+                AttributeGroups = AttrGroup,
+                SubcategoryAttributeGroups = subAttrGroups
             };
 
             return View(vm);
@@ -87,6 +105,13 @@ namespace KingPIM.Web.Controllers
             {
                 DeleteProduct(productId);
             }
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult UpdateAttributeValue(int ProductAttributeId, int ProductId, string Value)
+        {
+            prodAttrValueRepo.UpdateProductAttributeValue(ProductAttributeId, ProductId, Value);
+
             return RedirectToAction("Index");
         }
     }

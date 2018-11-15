@@ -77,7 +77,11 @@
                             <td>@p.Version</td>
                             <td>
                                 @*Leads to edit modal*@
-                                <a href="#editProductModal" class="editProd btn waves-effect yellow darken-2 modal-trigger" data-id="@p.Id" data-name="@p.Name" data-price="@p.Price" data-description="@p.Description">
+                                <a href="#editProductModal" class="editProd btn waves-effect yellow darken-2 modal-trigger"
+                                   data-id="@p.Id"
+                                   data-name="@p.Name"
+                                   data-price="@p.Price"
+                                   data-description="@p.Description">
                                     Edit
                                     <i class="material-icons right">edit</i>
                                 </a>
@@ -91,11 +95,74 @@
                         </tr>
                         <tr>
                             <td colspan="5">
-                                    @p.Description
+                                <div class="row">
+                                    <div class="col s6">
+                                        @p.Description
+                                    </div>
+                                    <div class="col s6">
+                                        @foreach (var attrGroup in Model.SubcategoryAttributeGroups)
+                                        {
+                                            if (attrGroup.SubcategoryId == p.SubcategoryId)
+                                            {
+                                                foreach (var attr in attrGroup.AttributeGroup.ProductAttributes)
+                                                {
+
+                                                    <form asp-action="UpdateAttributeValue" asp-controller="Product" method="post">
+                                                        <input asp-for="ProductAttributeId" type="hidden" value="@attr.Id" />
+                                                        <input asp-for="ProductId" type="hidden" value="@p.Id" />
+                                                        @if (attr.Type == "bool")
+                                                        {
+                                                            <div class="col s8">
+                                                                <label>
+                                                                    @if (attr.Type == "true")
+                                                                    {
+                                                                        <input type="checkbox" checked />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input type="checkbox" />
+                                                                    }
+                                                                    <span>@attr.Name</span>
+                                                                </label>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="input-field col s8">
+                                                                @if (attr.Type == "int")
+                                                                {
+                                                                    <input asp-for="Value" id="@attr.Name" type="number" class="validate" required />
+                                                                }
+                                                                else if (attr.Type == "string")
+                                                                {
+                                                                    <input asp-for="Value" id="@attr.Name" type="text" class="validate" required />
+                                                                }
+
+                                                                <label asp-for="Value" for="@attr.Name">@attr.Name</label>
+                                                                <span class="helper-text" data-error="Please enter a @attr.Name"></span>
+                                                            </div>
+                                                        }
+
+                                                        <div class="col s4">
+                                                            <button class="btn waves-effect" type="submit">
+                                                                Save
+                                                            </button>
+                                                        </div>
+
+                                                    </form>
+
+                                                }
+                                            }
+                                        }
+
+                                        <br />
+                                    </div>
+                                </div>
+
                                 <hr />
                             </td>
                         </tr>
-                        
+
                     }
                 </tbody>
 

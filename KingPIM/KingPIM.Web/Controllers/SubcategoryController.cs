@@ -61,10 +61,6 @@ namespace KingPIM.Web.Controllers
         // Create new Subcategory
         public IActionResult CreateSubcategory(MainPageViewModel vm)
         {
-            //var attributeParts = vm.AttributeGroupName.Split("%");
-
-            //var AttrGroup = attributeParts[0];
-            //var ProdAttr = attributeParts[1];
 
             var AttrGroupId = attributeGroupRepo.CreateAttributeGroup(vm);
             

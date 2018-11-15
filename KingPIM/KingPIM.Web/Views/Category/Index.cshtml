@@ -84,95 +84,13 @@
     </div>
 
     @*Create category modal*@
-    <div id="createCategoryModal" class="modal">
-
-        @*Create category form*@
-        <form asp-action="CreateCategory" asp-controller="Category" method="post" class="col s12">
-
-            <div class="modal-content">
-                <h4 class="center">Create new category</h4>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">library_books</i>
-                        <input asp-for="Name" id="icon_library_books" type="text" class="validate" required>
-                        <label asp-for="Name" for="icon_library_books">Category name</label>
-                        <span class="helper-text" data-error="Please enter a category name"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <a class="modal-close waves-effect btn grey">
-                    cancel
-                    <i class="material-icons right">cancel</i>
-                </a>
-                <button class="waves-effect btn green" type="submit">
-                    Create
-                    <i class="material-icons right">library_add</i>
-                </button>
-            </div>
-
-        </form>
-    </div>
+    <partial name="CreateModal" />
 
     @*Delete category modal*@
-    <div id="deleteCategoryModal" class="modal">
-        <div class="modal-content">
-            <h4 class="center">This will remove all the subcategories and products that are linked to this category!</h4>
-            <div class="row">
-                <h5 class="center">Are you sure you want to delete all of them?</h5>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="row">
-                <div class="right">
-
-                    <form>
-                        <a class="modal-close waves-effect btn grey col">
-                            No, cancel
-                            <i class="material-icons right">cancel</i>
-                        </a>
-                        <button asp-action="DeleteCategory" asp-controller="Category"
-                                class="modal-close btn waves-effect red darken-2 modal-trigger col" type="submit" style="margin-left:1em">
-                            Yes, delete
-                            <i class="material-icons right">delete</i>
-                        </button>
-                        <input class="deleteCategoryModalInput" type="hidden" name="categoryId" value="" />
-
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <partial name="DeleteModal" />
 
     @*Edit category modal*@
-    <div id="editCategoryModal" class="modal">
-        <form asp-action="UpdateCategory" asp-controller="Category">
-            <div class="modal-content">
-                <h4 class="center">Edit Category</h4>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">library_books</i>
-                        <input asp-for="Name" id="edit_library_books" type="text" class="editCategoryModalValue validate" value="">
-                        <label asp-for="Name" for="edit_library_books" class="active">Change category name</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <a class="modal-close waves-effect btn grey">
-                    cancel
-                    <i class="material-icons right">cancel</i>
-                </a>
-                <button class="modal-close waves-effect btn green" type="submit">
-                    edit
-                    <i class="material-icons right">edit</i>
-                </button>
-                <input class="editCategoryModalInput" type="hidden" name="categoryId" value="" />
-            </div>
-        </form>
-    </div>
+    <partial name="EditModal" />
 
 </div>
 

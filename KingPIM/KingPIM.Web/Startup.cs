@@ -56,6 +56,8 @@ namespace KingPIM.Web
 
             services.AddTransient<ISubcategoryAttributeGroup, SubcategoryAttributeGroupRepository>();
 
+            services.AddTransient<IProductAttributeValueRepository, ProductAttributeValueRepository>();
+
             services.AddTransient<IIdentitySeeder, IdentitySeeder>();
 
             

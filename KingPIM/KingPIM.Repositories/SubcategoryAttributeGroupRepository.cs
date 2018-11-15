@@ -4,6 +4,7 @@ using System.Text;
 using KingPIM.Data;
 using KingPIM.Models.Models;
 using KingPIM.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace KingPIM.Repositories
 {
@@ -16,7 +17,7 @@ namespace KingPIM.Repositories
         }
 
         // Reads all subcategory attributegroups
-        public IEnumerable<SubcategoryAttributeGroup> SubcategoryAttributeGroups => ctx.SubcategoryAttributeGroups;
+        public IEnumerable<SubcategoryAttributeGroup> SubcategoryAttributeGroups => ctx.SubcategoryAttributeGroups.Include(x => x.AttributeGroup).Include(x => x.AttributeGroup.ProductAttributes);
         public IEnumerable<SubcategoryAttributeGroup> GetSubcategoryAttributeGroups()
         {
             return SubcategoryAttributeGroups;

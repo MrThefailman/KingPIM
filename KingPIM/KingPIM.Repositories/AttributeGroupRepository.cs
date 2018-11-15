@@ -31,6 +31,7 @@ namespace KingPIM.Repositories
             var groupName = part[0];
             var GroupDescription = part[1];
 
+            // Om den finns redan ska den inte sparas
             int id = 0;
             var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(vm.AttributeGroupId));
             if(vm.Id == 0 && ctxAttrGroup == null || vm.Id != ctxAttrGroup.Id)

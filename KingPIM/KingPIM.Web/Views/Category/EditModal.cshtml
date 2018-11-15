@@ -1,0 +1,28 @@
+﻿@model MainPageViewModel
+
+<div id="editCategoryModal" class="modal">
+    <form asp-action="UpdateCategory" asp-controller="Category">
+        <div class="modal-content">
+            <h4 class="center">Edit Category</h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">library_books</i>
+                    <input asp-for="Name" id="edit_library_books" type="text" class="editCategoryModalValue validate" value="">
+                    <label asp-for="Name" for="edit_library_books" class="active">Change category name</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="modal-close waves-effect btn grey">
+                cancel
+                <i class="material-icons right">cancel</i>
+            </a>
+            <button class="modal-close waves-effect btn green" type="submit">
+                edit
+                <i class="material-icons right">edit</i>
+            </button>
+            <input class="editCategoryModalInput" type="hidden" name="categoryId" value="" />
+        </div>
+    </form>
+</div>

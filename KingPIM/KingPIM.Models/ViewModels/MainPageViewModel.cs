@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KingPIM.Models.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -21,6 +22,9 @@ namespace KingPIM.Models.ViewModels
 
         // To read product attributes
         public IEnumerable<ProductAttribute> ProductAttributes { get; set; }
+
+        // To read subcategory attributegroups
+        public IEnumerable<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
         
         public int Id { get; set; }
 
@@ -53,6 +57,8 @@ namespace KingPIM.Models.ViewModels
         public int ProductAttributeId { get; set; }
         
         public string AttributeName { get; set; }
+
+        public string Value { get; set; }
 
     }
 }
