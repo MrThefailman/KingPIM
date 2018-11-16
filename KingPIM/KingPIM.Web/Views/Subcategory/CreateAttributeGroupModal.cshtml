@@ -1,0 +1,65 @@
+﻿@model MainPageViewModel
+
+<div id="createAttributeModal" class="modal">
+
+    <div class="modal-content">
+        <h4 class="center">Create new Attributegroup</h4>
+        <div class="row">
+            <div class="col s6">
+                <div class="row">
+                    <div class="input-field col s8">
+                        <i class="material-icons prefix">library_books</i>
+                        <input asp-for="AttributeName" id="create-attribute-name" type="text" class="validate" />
+                        <label asp-for="AttributeName" for="create-attribute-name">Attribute name</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <button id="create-attribute-button" class="btn waves-effect">
+                            Add
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s8">
+                        <div class="input-field pin-top">
+                            <select asp-for="Type" id="attributeType-select" class="attrTypeSelect">
+                                <option selected disabled>chsose type</option>
+                                <option value="bool">Yes/no</option>
+                                <option value="string">Text</option>
+                                <option value="int">number</option>
+                                <option value="color">color</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div id="attr-group" class="input-field col s12">
+                    <i class="material-icons prefix">add</i>
+                    <input asp-for="AttributeGroupName" id="attribute-group-name" type="text" class="validate" />
+                    <label asp-for="AttributeGroupName" for="attribute-group-name">Name this group of attributes</label>
+                </div>
+                @*The chips will end up here*@
+                <div id="attribute-container" class="col s6">
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <div class="right">
+            <a class="modal-close waves-effect btn grey">
+                Cancel
+                <i class="material-icons right">cancel</i>
+            </a>
+            <a id="save-attributes" class="modal-close waves-effect btn green">
+                Save and exit
+                <i class="material-icons right">playlist_add_check</i>
+            </a>
+        </div>
+    </div>
+</div>

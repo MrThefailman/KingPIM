@@ -1,0 +1,80 @@
+﻿@model MainPageViewModel
+
+<div id="createSubcategoryModal" class="modal">
+
+    @*Create subcategory form*@
+    <form asp-action="CreateSubcategory" asp-controller="Subcategory" method="post" class="col s12">
+
+        <div class="modal-content">
+            <h4 class="center">Create new subcategory</h4>
+            <div class="row">
+
+                @*Choose category*@
+                <div class="input-field col s6">
+                    <select asp-for="CategoryId" class="categoryselect" required>
+                        <option disabled selected>Choose category</option>
+                        @foreach (var c in Model.Categories)
+                        {
+                            <option value="@c.Id">@c.Name</option>
+                        }
+                    </select>
+                    <span class="helper-text" data-error="Please enter a valid category"></span>
+                </div>
+
+                @*Choose subcategory name*@
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">library_books</i>
+                    <input asp-for="Name" id="icon_library_books" type="text" class="validate" required>
+                    <label asp-for="Name" for="icon_library_books">Subcategory name</label>
+                    <span class="helper-text" data-error="Please enter a subcategory name"></span>
+                </div>
+
+            </div>
+            @if (Model.AttributeGroups != null)
+            {
+                <div class="row">
+                    <div class="input-field col s6">
+                        <select id="attribute-select">
+                            <option disabled selected>Choose attributegroups</option>
+                            @foreach (var a in Model.AttributeGroups)
+                            {
+                                <option value="@a.Name%@a.Description">@a.Name</option>
+                            }
+                        </select>
+                        <label>Choose your attributegroups</label>
+                    </div>
+                    @*The attributes will end up here*@
+                    <div class="row col s6">
+
+                        <input asp-for="AttributeGroupName" id="attribute-container-input" type="hidden" value="" />
+                        <div id="sub-attribute-container" class="col s12">
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col s6">
+                    <a href="#createAttributeModal" class="createAttribute btn waves-effect small modal-trigger">
+                        Create new attribute
+                        <i class="material-icons right">playlist_add</i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="modal-close waves-effect btn grey">
+                cancel
+                <i class="material-icons right">cancel</i>
+            </a>
+            <button id="createSubcategorySubmit" class="waves-effect btn green" type="submit">
+                Create
+                <i class="material-icons right">library_add</i>
+            </button>
+        </div>
+
+    </form>
+</div>

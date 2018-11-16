@@ -1,0 +1,31 @@
+﻿@model MainPageViewModel
+
+<div id="deleteSubcategoryModal" class="modal">
+    <div class="modal-content">
+        <h5 class="center">This will remove the subcategory and all products linked to it!</h5>
+        <div class="row">
+            <h6 class="center">Are you sure you want to delete it?</h6>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="row">
+            <div class="right">
+
+                <form>
+                    <a class="modal-close waves-effect btn grey col">
+                        Cancel
+                        <i class="material-icons right">cancel</i>
+                    </a>
+                    <button asp-action="DeleteSubcategory" asp-controller="Subcategory"
+                            class="modal-close btn waves-effect red darken-2 modal-trigger col" type="submit" style="margin-left:1em">
+                        Delete
+                        <i class="material-icons right">delete</i>
+                    </button>
+                    <input class="deleteSubcategoryModalInput" type="hidden" name="subcategoryId" value="" />
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
