@@ -27,6 +27,8 @@ namespace KingPIM.Repositories
         {
             if(AttrGroupId != 0 && SubCatId != 0)
             {
+
+
                 var newSubcatAttrGroup = new SubcategoryAttributeGroup
                 {
                     AttributeGroupId = AttrGroupId,

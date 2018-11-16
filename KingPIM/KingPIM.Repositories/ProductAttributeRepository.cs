@@ -5,6 +5,7 @@ using System.Text;
 using KingPIM.Data;
 using KingPIM.Models;
 using KingPIM.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace KingPIM.Repositories
 {
@@ -24,15 +25,16 @@ namespace KingPIM.Repositories
 
         public void CreateProductAttribute(MainPageViewModel pa, int AttrGroupId)
         {
-            if(pa.Id == 0)
+            var ctxAttrGroups = ctx.AttributeGroups.Include(x => x.ProductAttributes);
+            var AttrGroup = ctxAttrGroups.FirstOrDefault(x => x.Id.Equals(AttrGroupId));
+            
+            if (pa.Id == 0 && AttrGroup.ProductAttributes.Count() == 0)
             {
                 var attributeGroup = pa.AttributeGroupName.Split("%");
 
                 var attributes = attributeGroup[1];
 
                 var attributeNames = attributes.Split("|");
-
-                //var AttributeNames = pa.AttributeName.Split("|");
 
                 foreach (var an in attributeNames)
                 {
@@ -48,8 +50,6 @@ namespace KingPIM.Repositories
                         AttributeGroupId = AttrGroupId
                     };
                     ctx.ProductAttributes.Add(newProdAttr);
-
-                    //var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(AttrGroupId));
 
                     ctx.SaveChanges();
                 }

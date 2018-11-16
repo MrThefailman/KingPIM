@@ -153,14 +153,10 @@
                 var value = $(this).val();
 
                 $('#sub-attribute-container').empty();
-
-                //console.log(value);
-
+                
                 var attrConInput = $('#attribute-container-input');
                 console.log(attrConInput.val() + value);
-
-                //console.log(attrConInput.val());
-
+                
                 attrConInput.val(value);
                 
                 var part = value.split('%');
@@ -234,11 +230,13 @@
 
             });
 
+            // Attributegroup modal
             var attributeGroupModal = $('#createAttributeGroupModal');
             var AGMInstances = M.Modal.init(attributeGroupModal/*, options*/);
 
             var addAttributeGroup = $('#add-attribute-group');
 
+            // Send attributeGroup to subcategory modal
             addAttributeGroup.click(function () {
                 var AttrGroupAttributeName = $('#AttrGroup-attribute-name').val();
                 var attributeTypeGroup = $('#attributeType-group').val();

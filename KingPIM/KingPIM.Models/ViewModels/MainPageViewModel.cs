@@ -25,6 +25,9 @@ namespace KingPIM.Models.ViewModels
 
         // To read subcategory attributegroups
         public IEnumerable<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
+
+        // To read productattribute values
+        public IEnumerable<ProductAttributeValue> ProductAttributeValues { get; set; }
         
         public int Id { get; set; }
 

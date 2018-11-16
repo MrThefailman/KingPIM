@@ -27,8 +27,6 @@ namespace KingPIM.Repositories
         // Add category to DB
         public void CreateCategory(MainPageViewModel vm)
         {
-            //var ctxCategories = ctx.Categories;
-
             if(vm.Id == 0)
             {
                 var newCat = new Category

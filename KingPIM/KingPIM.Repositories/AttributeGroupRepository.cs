@@ -5,6 +5,7 @@ using System.Text;
 using KingPIM.Data;
 using KingPIM.Models;
 using KingPIM.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace KingPIM.Repositories
 {
@@ -17,7 +18,7 @@ namespace KingPIM.Repositories
         }
 
         // Reads all attribute groups
-        public IEnumerable<AttributeGroup> AttributeGroups => ctx.AttributeGroups;
+        public IEnumerable<AttributeGroup> AttributeGroups => ctx.AttributeGroups.Include(x => x.ProductAttributes);
         public IEnumerable<AttributeGroup> GetAttributeGroups()
         {
             return AttributeGroups;
@@ -33,8 +34,8 @@ namespace KingPIM.Repositories
 
             // Om den finns redan ska den inte sparas
             int id = 0;
-            var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(vm.AttributeGroupId));
-            if(vm.Id == 0 && ctxAttrGroup == null || vm.Id != ctxAttrGroup.Id)
+            var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Name.Equals(groupName));
+            if (vm.Id == 0 && ctxAttrGroup == null)
             {
                 var newAttrGroup = new AttributeGroup
                 {
@@ -46,6 +47,10 @@ namespace KingPIM.Repositories
 
                 ctx.SaveChanges();
                 id = newAttrGroup.Id;
+            }
+            else
+            {
+                id = ctxAttrGroup.Id;
             }
             return id;
         }

@@ -134,7 +134,6 @@
                 @if (Model.AttributeGroups != null)
                 {
                     <div class="row">
-
                         <div class="input-field col s6">
                             <select id="attribute-select">
                                 <option disabled selected>Choose attributegroups</option>
@@ -235,19 +234,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <select asp-for="AttributeName" id="attribute-edit-select">
-                            <option disabled selected>Choose attributes</option>
-                            @foreach (var a in Model.ProductAttributes)
-                            {
-                                <option value="@a.Name|@a.Type">@a.Name</option>
-                            }
-                        </select>
-                        <label>Choose your attributes</label>
-                    </div>
-                    <div class="col s6">
-
-                    </div>
+                    
                 </div>
             </div>
 
@@ -264,8 +251,6 @@
             </div>
         </form>
     </div>
-
-
 
     @*Create attributegroup modal*@
     <div id="createAttributeModal" class="modal">
@@ -295,6 +280,7 @@
                                     <option value="bool">Yes/no</option>
                                     <option value="string">Text</option>
                                     <option value="int">number</option>
+                                    <option value="color">color</option>
                                 </select>
                             </div>
                         </div>
