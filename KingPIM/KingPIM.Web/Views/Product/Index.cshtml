@@ -99,15 +99,18 @@
                                         @p.Description
                                     </div>
                                     <div class="col s6">
+
+                                        @*loops all the attributegroups*@
                                         @foreach (var attrGroup in Model.SubcategoryAttributeGroups)
                                         {
                                             if (attrGroup.SubcategoryId == p.SubcategoryId)
                                             {
+                                                @*Loops all attributes in the attributeGroup*@
                                                 foreach (var attr in attrGroup.AttributeGroup.ProductAttributes)
                                                 {
 
                                                     var prodAttrValueRow = Model.ProductAttributeValues.FirstOrDefault(x => x.ProductAttribute.Id.Equals(attr.Id) && x.ProductId.Equals(p.Id));
-                                                    //var prodAttrValueRow = Model.ProductAttributeValues.Find(attr.Id, p.Id);
+                                                    
                                                     var prodAttrValueRowValue = prodAttrValueRow?.Value;
 
                                                     <form asp-action="UpdateAttributeValue" asp-controller="Product" method="post">

@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using KingPIM.Models;
 using KingPIM.Models.ViewModels;
 using KingPIM.Repositories;
+using KingPIM.Web.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KingPIM.Web.Controllers
 {
@@ -95,6 +98,29 @@ namespace KingPIM.Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        //[Produces("application/json")]
+        public IActionResult CategoryExportJSON(int categoryId)
+        {
+            var categories = categoryRepo.GetCategories();
+            var getCategories = ExportHelper.categories(categories);
+            var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
+
+            if(categoryId == 0)
+            {
+                var categoryJson = JsonConvert.SerializeObject(getCategories);
+                var bytes = Encoding.UTF8.GetBytes(categoryJson);
+                return File(bytes, "application/ocet-stream", "categories.json");
+            }
+            else
+            {
+                var selectedCategoryJson = JsonConvert.SerializeObject(selectedCategory);
+                var bytes = Encoding.UTF8.GetBytes(selectedCategoryJson);
+                return File(bytes, "application/octet-stream", "category_" + categoryId + ".json");
+
+            }
         }
     }
 }

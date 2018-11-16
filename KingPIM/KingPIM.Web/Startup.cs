@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using KingPIM.Data.DataAccess;
 using KingPIM.Repositories;
+using Newtonsoft.Json;
 
 namespace KingPIM.Web
 {
@@ -30,6 +31,11 @@ namespace KingPIM.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            // So the Json() in the controller will return correctly:
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
             // Service for Identity seeder
             services.AddTransient<IIdentitySeeder, IdentitySeeder>();

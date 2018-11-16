@@ -109,5 +109,11 @@ namespace KingPIM.Web.Controllers
 
             return RedirectToAction("Index");
         }
+
+        //public IActionResult SubcategoryExportJSON(int subcategoryId)
+        //{
+
+        //    return Json();
+        //}
     }
 }
