@@ -70,7 +70,6 @@
                                     }
                                 }
 
-
                             </td>
                             <td>@String.Format("{0:C}", p.Price)</td>
 
@@ -206,150 +205,19 @@
                                 <hr />
                             </td>
                         </tr>
-
                     }
                 </tbody>
-
             </table>
-
-
         </div>
     </div>
 
     @*Create product modal*@
-    <div id="createProductModal" class="modal">
-
-        @*Create product form*@
-        <form asp-action="CreateProduct" asp-controller="Product" method="post" class="col s12">
-
-            <div class="modal-content">
-                <h4 class="center">Create new product</h4>
-                <div class="row">
-
-                    <div class="input-field col s6">
-                        <select asp-for="SubcategoryId" class="subcategoryselect validate" required>
-                            <option disabled selected>Choose subcategory</option>
-                            @foreach (var s in Model.Subcategories)
-                            {
-                                <option value="@s.Id">@s.Name</option>
-                            }
-                        </select>
-                        <span class="helper-text" data-error="Please enter a valid subcategory"></span>
-                    </div>
-
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">library_books</i>
-                        <input asp-for="Name" id="icon_library_books" type="text" class="validate" required />
-                        <label asp-for="Name" for="icon_library_books">Product name</label>
-                        <span class="helper-text" data-error="Please enter a product name"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">attach_money</i>
-                        <input asp-for="Price" id="productPrice" class="validate" required />
-                        <label asp-for="Price" for="productPrice">Product price</label>
-                        <span class="helper-text" data-error="Please enter a valid price"></span>
-                    </div>
-                    <div class="input-field col s6">
-                        <textarea asp-for="Description" id="createTextarea" class="createProductModalDescription materialize-textarea"></textarea>
-                        <label asp-for="Description" for="createTextarea">Description</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <a class="modal-close waves-effect btn grey">
-                    cancel
-                    <i class="material-icons right">cancel</i>
-                </a>
-                <button id="createProductSubmit" class="modal-close waves-effect btn green" type="submit">
-                    Create
-                    <i class="material-icons right">library_add</i>
-                </button>
-            </div>
-
-        </form>
-    </div>
+    <partial name="CreateModal" />
 
     @*Delete product modal*@
-    <div id="deleteProductModal" class="modal">
-        <div class="modal-content">
-            <h4 class="center">This will remove this product</h4>
-            <div class="row">
-                <h5 class="center">are you sure you want to remove it?</h5>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="row">
-                <div class="right">
-
-                    <form>
-                        <a class="modal-close waves-effect btn grey col">
-                            No, cancel
-                            <i class="material-icons right">cancel</i>
-                        </a>
-                        <button asp-action="DeleteProduct" asp-controller="Product"
-                                class="modal-close btn waves-effect red darken-2 modal-trigger col" type="submit" style="margin-left:1em">
-                            Yes, delete
-                            <i class="material-icons right">delete</i>
-                        </button>
-                        <input class="deleteProductModalInput" type="hidden" name="productId" value="" />
-
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
+    <partial name="DeleteModal" />
 
     @*Edit product modal*@
-    <div id="editProductModal" class="modal">
-        <form asp-action="UpdateProduct" asp-controller="Product">
-            <div class="modal-content">
-                <h4 class="center">Edit Product</h4>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <select asp-for="SubcategoryId" class="subcategoryselect">
-                            <option disabled selected>Choose subcategory</option>
-                            @foreach (var s in Model.Subcategories)
-                            {
-                                <option value="@s.Id">@s.Name</option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">library_books</i>
-                        <input asp-for="Name" id="edit_library_books" type="text" class="editProductModalValue validate" value="">
-                        <label asp-for="Name" for="edit_library_books" class="active">Change product name</label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">attach_money</i>
-                        <input asp-for="Price" class="editProductModalPrice validate" id="productPrice" value="" />
-                        <label asp-for="Price" for="productPrice">Product price</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <textarea asp-for="Description" id="editTextarea" class="editProductModalDescription materialize-textarea"></textarea>
-                        <label asp-for="Description" for="editTextarea">Description</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <a class="modal-close waves-effect btn grey">
-                    cancel
-                    <i class="material-icons right">cancel</i>
-                </a>
-                <button class="waves-effect btn green" type="submit">
-                    edit
-                    <i class="material-icons right">edit</i>
-                </button>
-                <input class="editProductModalInput" type="hidden" name="productId" value="" />
-            </div>
-        </form>
-    </div>
+    <partial name="EditModal" />
 
 </div>

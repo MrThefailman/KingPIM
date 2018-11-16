@@ -1,0 +1,56 @@
+﻿@model MainPageViewModel
+
+<div id="createProductModal" class="modal">
+
+    @*Create product form*@
+    <form asp-action="CreateProduct" asp-controller="Product" method="post" class="col s12">
+
+        <div class="modal-content">
+            <h4 class="center">Create new product</h4>
+            <div class="row">
+
+                <div class="input-field col s6">
+                    <select asp-for="SubcategoryId" class="subcategoryselect validate" required>
+                        <option disabled selected>Choose subcategory</option>
+                        @foreach (var s in Model.Subcategories)
+                        {
+                            <option value="@s.Id">@s.Name</option>
+                        }
+                    </select>
+                    <span class="helper-text" data-error="Please enter a valid subcategory"></span>
+                </div>
+
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">library_books</i>
+                    <input asp-for="Name" id="icon_library_books" type="text" class="validate" required />
+                    <label asp-for="Name" for="icon_library_books">Product name</label>
+                    <span class="helper-text" data-error="Please enter a product name"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">attach_money</i>
+                    <input asp-for="Price" id="productPrice" class="validate" required />
+                    <label asp-for="Price" for="productPrice">Product price</label>
+                    <span class="helper-text" data-error="Please enter a valid price"></span>
+                </div>
+                <div class="input-field col s6">
+                    <textarea asp-for="Description" id="createTextarea" class="createProductModalDescription materialize-textarea"></textarea>
+                    <label asp-for="Description" for="createTextarea">Description</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="modal-close waves-effect btn grey">
+                cancel
+                <i class="material-icons right">cancel</i>
+            </a>
+            <button id="createProductSubmit" class="modal-close waves-effect btn green" type="submit">
+                Create
+                <i class="material-icons right">library_add</i>
+            </button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,49 @@
+﻿@model MainPageViewModel
+
+<div id="editProductModal" class="modal">
+    <form asp-action="UpdateProduct" asp-controller="Product">
+        <div class="modal-content">
+            <h4 class="center">Edit Product</h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <select asp-for="SubcategoryId" class="subcategoryselect">
+                        <option disabled selected>Choose subcategory</option>
+                        @foreach (var s in Model.Subcategories)
+                        {
+                            <option value="@s.Id">@s.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">library_books</i>
+                    <input asp-for="Name" id="edit_library_books" type="text" class="editProductModalValue validate" value="">
+                    <label asp-for="Name" for="edit_library_books" class="active">Change product name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <i class="material-icons prefix">attach_money</i>
+                    <input asp-for="Price" class="editProductModalPrice validate" id="productPrice" value="" />
+                    <label asp-for="Price" for="productPrice">Product price</label>
+                </div>
+                <div class="input-field col s6">
+                    <textarea asp-for="Description" id="editTextarea" class="editProductModalDescription materialize-textarea"></textarea>
+                    <label asp-for="Description" for="editTextarea">Description</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a class="modal-close waves-effect btn grey">
+                cancel
+                <i class="material-icons right">cancel</i>
+            </a>
+            <button class="waves-effect btn green" type="submit">
+                edit
+                <i class="material-icons right">edit</i>
+            </button>
+            <input class="editProductModalInput" type="hidden" name="productId" value="" />
+        </div>
+    </form>
+</div>
