@@ -10,37 +10,16 @@ namespace KingPIM.Web.Infrastructure
 {
     public class ExportHelper
     {
-        //public static List<MainPageViewModel> CategoryExportJSON(IEnumerable<Category> categories)
-        //{
-        //    //var catVmList = new List<MainPageViewModel>();
-
-        //    //foreach(var cat in categories)
-        //    //{
-        //    //    catVmList.Add(
-        //    //        new MainPageViewModel
-        //    //        {
-        //    //            Id = cat.Id,
-        //    //            Name = cat.Name,
-        //    //            Published = cat.Published,
-        //    //            Subcategories = SubcategoryExportJSON(cat.Subcategories)
-        //    //        });
-        //    //}
-        //    //return catVmList;
-            
-        //    return Json();
-
-        //}
-
-        public static List<CategoryExportViewModel> categories(IEnumerable<Category> categories)
+        public static List<CategoryExportViewModel> GetCategories(IEnumerable<Category> categories)
         {
             var categoriesVm = new List<CategoryExportViewModel>();
-            foreach(var cat in categories)
+            foreach (var cat in categories)
             {
                 categoriesVm.Add(new CategoryExportViewModel
                 {
                     Id = cat.Id,
                     Name = cat.Name,
-                    Subcategories = cat.Subcategories,
+                    Subcategories = ConvertSubcat(cat.Subcategories),
                     AddedDate = cat.AddedDate,
                     UpdatedDate = cat.UpdatedDate,
                     Published = cat.Published,
@@ -49,22 +28,90 @@ namespace KingPIM.Web.Infrastructure
             }
             return categoriesVm;
         }
-       
-        private static List<SubcategoryExportViewModel> SubcategoryExportJSON(List<Subcategory> subcategories)
-        {
-            var subcatVmList = new List<SubcategoryExportViewModel>();
 
-            foreach(var subcat in subcategories)
+        private static List<SubcategoryExportViewModel> ConvertSubcat(List<Subcategory> subcategories)
+        {
+            var subcatList = new List<SubcategoryExportViewModel>();
+
+            foreach (var subcat in subcategories)
             {
-                subcatVmList.Add(
+                subcatList.Add(
                     new SubcategoryExportViewModel
                     {
                         Id = subcat.Id,
                         Name = subcat.Name,
-                        Published = subcat.Published
+                        CategoryId = subcat.CategoryId,
+                        AddedDate = subcat.AddedDate,
+                        UpdatedDate = subcat.UpdatedDate,
+                        Published = subcat.Published,
+                        Version = subcat.Version
                     });
             }
-            return subcatVmList;
+            return subcatList;
+        }
+
+        public static List<SubcategoryExportViewModel> GetSubcategories(IEnumerable<Subcategory> subcategories)
+        {
+            var subcategoriesVm = new List<SubcategoryExportViewModel>();
+            foreach (var subcat in subcategories)
+            {
+                subcategoriesVm.Add(
+                    new SubcategoryExportViewModel
+                    {
+                        Id = subcat.Id,
+                        Name = subcat.Name,
+                        CategoryId = subcat.CategoryId,
+                        Products = ConvertProduct(subcat.Products),
+                        AddedDate = subcat.AddedDate,
+                        UpdatedDate = subcat.UpdatedDate,
+                        Published = subcat.Published,
+                        Version = subcat.Version
+                    });
+            }
+            return subcategoriesVm;
+        }
+
+        private static List<ProductExportViewModel> ConvertProduct(List<Product> products)
+        {
+            var productList = new List<ProductExportViewModel>();
+            foreach (var prod in products)
+            {
+                productList.Add(
+                    new ProductExportViewModel
+                    {
+                        Id = prod.Id,
+                        Name = prod.Name,
+                        Price = prod.Price,
+                        Description = prod.Description,
+                        AddedDate = prod.AddedDate,
+                        UpdatedDate = prod.UpdatedDate,
+                        Version = prod.Version,
+                        Published = prod.Published
+                    });
+            }
+            return productList;
+        }
+
+        public static List<ProductExportViewModel> GetProducts(IEnumerable<Product> products)
+        {
+            var productVm = new List<ProductExportViewModel>();
+            foreach(var prod in products)
+            {
+                productVm.Add(
+                    new ProductExportViewModel
+                    {
+                        Id = prod.Id,
+                        Name = prod.Name,
+                        SubcategoryId = prod.SubcategoryId,
+                        Price = prod.Price,
+                        Description = prod.Description,
+                        AddedDate = prod.AddedDate,
+                        UpdatedDate = prod.UpdatedDate,
+                        Version = prod.Version,
+                        Published = prod.Published
+                    });
+            }
+            return productVm;
         }
     }
 }

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using KingPIM.Models.ViewModels;
 using KingPIM.Repositories;
+using KingPIM.Web.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KingPIM.Web.Controllers
 {
@@ -115,6 +118,26 @@ namespace KingPIM.Web.Controllers
             prodAttrValueRepo.UpdateProductAttributeValue(ProductAttributeId, ProductId, Value);
 
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ProductExportJSON(int productId)
+        {
+            var products = productRepo.GetProducts();
+            var getProducts = ExportHelper.GetProducts(products);
+            var selectedProduct = getProducts.FirstOrDefault(x => x.Id.Equals(productId));
+
+            if(productId == 0)
+            {
+                var productJson = JsonConvert.SerializeObject(getProducts);
+                var bytes = Encoding.UTF8.GetBytes(productJson);
+                return File(bytes, "application/ocet-stream", "products.json");
+            }
+            else
+            {
+                var selectedProductJson = JsonConvert.SerializeObject(selectedProduct);
+                var bytes = Encoding.UTF8.GetBytes(selectedProductJson);
+                return File(bytes, "application/ocet-stream", "Product_" + productId + ".json");
+            }
         }
     }
 }

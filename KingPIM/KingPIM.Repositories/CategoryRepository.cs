@@ -1,6 +1,7 @@
 ﻿using KingPIM.Data;
 using KingPIM.Models;
 using KingPIM.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace KingPIM.Repositories
         }
 
         // Reads all categories
-        public IEnumerable<Category> Categories => ctx.Categories;
+        public IEnumerable<Category> Categories => ctx.Categories.Include(x => x.Subcategories);
         public IEnumerable<Category> GetCategories()
         {
             return Categories;

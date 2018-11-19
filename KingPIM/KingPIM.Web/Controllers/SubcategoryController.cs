@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using KingPIM.Models.ViewModels;
 using KingPIM.Repositories;
+using KingPIM.Web.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace KingPIM.Web.Controllers
 {
@@ -110,10 +113,24 @@ namespace KingPIM.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        //public IActionResult SubcategoryExportJSON(int subcategoryId)
-        //{
+        public IActionResult SubcategoryExportJSON(int subcategoryId)
+        {
+            var subcategories = subcategoryRepo.GetSubcategories();
+            var getSucategories = ExportHelper.GetSubcategories(subcategories);
+            var selectedSubcategory = getSucategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
 
-        //    return Json();
-        //}
+            if(subcategoryId == 0)
+            {
+                var subcategoryJson = JsonConvert.SerializeObject(getSucategories);
+                var bytes = Encoding.UTF8.GetBytes(subcategoryJson);
+                return File(bytes, "application/ocet-stream", "subcategories.json");
+            }
+            else
+            {
+                var selectedSubcategoryJson = JsonConvert.SerializeObject(selectedSubcategory);
+                var bytes = Encoding.UTF8.GetBytes(selectedSubcategoryJson);
+                return File(bytes, "application/ocet-stream", "subcategory_" + subcategoryId + ".json");
+            }
+        }
     }
 }

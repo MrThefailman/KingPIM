@@ -105,7 +105,7 @@ namespace KingPIM.Web.Controllers
         public IActionResult CategoryExportJSON(int categoryId)
         {
             var categories = categoryRepo.GetCategories();
-            var getCategories = ExportHelper.categories(categories);
+            var getCategories = ExportHelper.GetCategories(categories);
             var selectedCategory = getCategories.FirstOrDefault(x => x.Id.Equals(categoryId));
 
             if(categoryId == 0)

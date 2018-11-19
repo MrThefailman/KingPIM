@@ -4,15 +4,16 @@ using System.Text;
 
 namespace KingPIM.Models.ViewModels
 {
-    [Serializable]
-    public class CategoryExportViewModel
+    public class ProductExportViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual List<SubcategoryExportViewModel> Subcategories { get; set; }
+        public int SubcategoryId { get; set; }
+        public double Price { get; set; }
+        public string Description { get; set; }
         public DateTime AddedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
-        public bool Published { get; set; }
         public double Version { get; set; }
+        public bool Published { get; set; }
     }
 }
