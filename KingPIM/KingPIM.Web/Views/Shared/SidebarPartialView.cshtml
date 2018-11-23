@@ -27,6 +27,20 @@
                 </a>
             </li>
         }
+        <li>
+            <a href="=ResetPassword" class="btn waves-effect red lighten-2 center">
+                Reset password
+            </a>
+        </li>
+        @if (User.IsInRole("Admin"))
+        {
+            <li>
+                <a href="Account/Users" class="btn waves-effect center">
+                    Create New user
+                </a>
+            </li>
+        }
+
 
         @foreach (var c in Model.Categories)
         {

@@ -1,0 +1,49 @@
+﻿@model AccountViewModel
+
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="container">
+    <div class="row center">
+        <h2>Add user</h2>
+        <form asp-action="CreateUser" asp-controller="Account">
+            <div class="col s6 offset-s3">
+                <div class="input-field">
+                    <input asp-for="Email" id="accountEmail" />
+                    <label for="accountEmail">User email</label>
+                </div>
+                <div class="input-field">
+                    <select asp-for="Role">
+                        <option selected disabled>Choose role</option>
+                        <option>Admin</option>
+                        <option>Publisher</option>
+                        <option>Editor</option>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <input asp-for="Password" id="accountPassword" />
+                    <label asp-for="Password" for="accountPassword">Password</label>
+                </div>
+                <div class="input-field">
+                    <input asp-for="ConfirmPassword" id="accountConfirmPassword" />
+                    <label asp-for="ConfirmPassword" for="accountConfirmPassword">Confirm password</label>
+                </div>
+                <div class="col s6">
+                    <button type="submit" class="btn green waves-effect btn-large">
+                        Add user
+                        <i class="material-icons right">add</i>
+                    </button>
+                </div>
+
+                <div class="col s6">
+                    <button asp-action="Index" asp-controller="Category" class="btn grey waves-effect btn-large">
+                        Cancel
+                        <i class="material-icons right">close</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>

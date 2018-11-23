@@ -42,7 +42,7 @@
                             @*If the role can publish there will be a button, otherwise it
                                 will just tell the published value*@
                             <td>
-                                @if (!User.IsInRole("Admin") || !User.IsInRole("Publisher"))
+                                @if (!User.IsInRole("Editor"))
                                 {
                                     <form asp-action="PublishSubcategory" asp-controller="Subcategory">
 

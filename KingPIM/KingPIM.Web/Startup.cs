@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using KingPIM.Data.DataAccess;
 using KingPIM.Repositories;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace KingPIM.Web
 {
@@ -63,6 +64,7 @@ namespace KingPIM.Web
             services.AddTransient<ISubcategoryAttributeGroup, SubcategoryAttributeGroupRepository>();
 
             services.AddTransient<IProductAttributeValueRepository, ProductAttributeValueRepository>();
+            
 
             services.AddTransient<IIdentitySeeder, IdentitySeeder>();
 
