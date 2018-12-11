@@ -27,51 +27,57 @@ namespace KingPIM.Repositories
         // Adds attribute groups to DB
         public int CreateAttributeGroup(MainPageViewModel vm)
         {
-            var part = vm.AttributeGroupName.Split("%");
-
-            var groupName = part[0];
-            var GroupDescription = part[1];
-
-            // Om den finns redan ska den inte sparas
-            int id = 0;
-            var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Name.Equals(groupName));
-            if (vm.Id == 0 && ctxAttrGroup == null)
+            if (vm.AttributeGroupName != null)
             {
-                var newAttrGroup = new AttributeGroup
+
+
+                var part = vm.AttributeGroupName.Split("%");
+
+                var groupName = part[0];
+                var GroupDescription = part[1];
+
+                // If it exists already, don't save
+                int id = 0;
+                var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Name.Equals(groupName));
+                if (vm.Id == 0 && ctxAttrGroup == null)
                 {
-                    Name = groupName,
-                    Description = GroupDescription,
-                    ProductAttributes = null
-                };
-                ctx.AttributeGroups.Add(newAttrGroup);
+                    var newAttrGroup = new AttributeGroup
+                    {
+                        Name = groupName,
+                        Description = GroupDescription,
+                        ProductAttributes = null
+                    };
+                    ctx.AttributeGroups.Add(newAttrGroup);
 
-                ctx.SaveChanges();
-                id = newAttrGroup.Id;
+                    ctx.SaveChanges();
+                    id = newAttrGroup.Id;
+                }
+                else
+                {
+                    id = ctxAttrGroup.Id;
+                }
+                return id;
             }
-            else
-            {
-                id = ctxAttrGroup.Id;
-            }
-            return id;
+            return 0;
         }
-         // Deletes the attributegroup
+        // Deletes the attributegroup
         public AttributeGroup DeleteAttributeGroup(int attributeGroupId)
         {
             var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(attributeGroupId));
-            if(ctxAttrGroup != null)
+            if (ctxAttrGroup != null)
             {
                 ctx.AttributeGroups.Remove(ctxAttrGroup);
                 ctx.SaveChanges();
             }
             return ctxAttrGroup;
         }
-        
+
         // Updates the attributegroup
         public void EditAttributeGroup(MainPageViewModel ag)
         {
             var ctxAttrGroup = ctx.AttributeGroups.FirstOrDefault(x => x.Id.Equals(ag.AttributeGroupId));
 
-            if(ctxAttrGroup != null)
+            if (ctxAttrGroup != null)
             {
                 ctxAttrGroup.Name = ag.Name;
                 ctxAttrGroup.Description = ag.Description;

@@ -5,7 +5,18 @@
       "node_modules/materialize-css/dist/js/materialize.min.js",
       "node_modules/jquery/dist/jquery.min.js",
       "node_modules/popper.js/dist/umd/popper.min.js"
-    ],
-    "sourceMap": false
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/layoutScript.min.js",
+    "inputFiles": [
+      "wwwroot/js/layoutScript.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/accountLayout.min.js",
+    "inputFiles": [
+      "wwwroot/js/accountLayout.js"
+    ]
   }
 ]

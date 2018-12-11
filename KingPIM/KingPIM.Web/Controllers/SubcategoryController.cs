@@ -64,15 +64,18 @@ namespace KingPIM.Web.Controllers
         // Create new Subcategory
         public IActionResult CreateSubcategory(MainPageViewModel vm)
         {
+            if (vm.AttributeGroupName != null)
+            {
+                var AttrGroupId = attributeGroupRepo.CreateAttributeGroup(vm);
 
-            var AttrGroupId = attributeGroupRepo.CreateAttributeGroup(vm);
-            
-            productAttributeRepo.CreateProductAttribute(vm, AttrGroupId);
+                productAttributeRepo.CreateProductAttribute(vm, AttrGroupId);
 
-            var SubCatId = subcategoryRepo.CreateSubcategory(vm);
+                var SubCatId = subcategoryRepo.CreateSubcategory(vm);
 
-            subcategoryAttributeGroupRepo.CreateSubcategoryAttributeGroup(AttrGroupId, SubCatId);
-            
+                subcategoryAttributeGroupRepo.CreateSubcategoryAttributeGroup(AttrGroupId, SubCatId);
+            }
+            subcategoryRepo.CreateSubcategory(vm);
+
             return RedirectToAction("Index");
         }
 
@@ -81,7 +84,7 @@ namespace KingPIM.Web.Controllers
         {
             var subcategory = subcategoryRepo.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.SubcategoryId));
 
-            if(ModelState.IsValid && vm != null)
+            if (ModelState.IsValid && vm != null)
             {
                 subcategoryRepo.EditSubcategory(vm);
             }
@@ -94,7 +97,7 @@ namespace KingPIM.Web.Controllers
         {
             var subcategory = subcategoryRepo.Subcategories.FirstOrDefault(x => x.Id.Equals(vm.SubcategoryId));
 
-            if(ModelState.IsValid && vm != null)
+            if (ModelState.IsValid && vm != null)
             {
                 subcategoryRepo.PublishSubcategory(vm);
             }
@@ -105,7 +108,7 @@ namespace KingPIM.Web.Controllers
         public IActionResult DeleteSubCategory(int subcategoryId)
         {
             var delete = subcategoryRepo.DeleteSubcategory(subcategoryId);
-            if(delete != null)
+            if (delete != null)
             {
                 DeleteSubCategory(subcategoryId);
             }
@@ -119,7 +122,7 @@ namespace KingPIM.Web.Controllers
             var getSucategories = ExportHelper.GetSubcategories(subcategories);
             var selectedSubcategory = getSucategories.FirstOrDefault(x => x.Id.Equals(subcategoryId));
 
-            if(subcategoryId == 0)
+            if (subcategoryId == 0)
             {
                 var subcategoryJson = JsonConvert.SerializeObject(getSucategories);
                 var bytes = Encoding.UTF8.GetBytes(subcategoryJson);

@@ -10,13 +10,13 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
+    <None Include="wwwroot\js\layoutScript.js" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="jQuery" Version="3.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
-    <PackageReference Include="Sendgrid" Version="9.10.0" />
   </ItemGroup>
 
   <ItemGroup>

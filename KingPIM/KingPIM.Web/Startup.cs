@@ -14,6 +14,8 @@ using KingPIM.Data.DataAccess;
 using KingPIM.Repositories;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using KingPIM.Models.Models;
+using KingPIM.Web.Infrastructure;
 
 namespace KingPIM.Web
 {
@@ -32,6 +34,8 @@ namespace KingPIM.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddSingleton(_configuration);
 
             // So the Json() in the controller will return correctly:
             services.AddMvc().AddJsonOptions(options => {
@@ -64,8 +68,9 @@ namespace KingPIM.Web
             services.AddTransient<ISubcategoryAttributeGroup, SubcategoryAttributeGroupRepository>();
 
             services.AddTransient<IProductAttributeValueRepository, ProductAttributeValueRepository>();
-            
 
+            services.AddTransient<PasswordService>();
+            
             services.AddTransient<IIdentitySeeder, IdentitySeeder>();
 
             
@@ -77,6 +82,8 @@ namespace KingPIM.Web
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 3;
             });
+            services.AddMemoryCache();
+            services.AddSession();
 
         }
 
@@ -108,7 +115,7 @@ namespace KingPIM.Web
 
                 routes.MapRoute(
                     name: "Account",
-                    template: "{controller=Account}/{action=Index}");
+                    template: "{controller=Account}/{action=Index}/{userId?}/{code?}");
             });
 
             var runIdentitySeed = Task.Run(async () => await identitySeeder.CreateAdminAccountIfEmpty()).Result;

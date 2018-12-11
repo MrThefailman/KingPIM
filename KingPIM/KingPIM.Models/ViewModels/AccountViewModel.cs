@@ -16,8 +16,12 @@ namespace KingPIM.Models.ViewModels
         [DataType(DataType.Password), Compare(nameof(Password))]
         public string ConfirmPassword { get; set; }
         public string Role { get; set; }
+        [DataType(DataType.Password)]
+        public string NewPassword { get; set; }
 
         public IEnumerable<IdentityUser> Users { get; set; }
         public IEnumerable<IdentityRole> Roles { get; set; }
+
+        public string Code { get; set; }
     }
 }

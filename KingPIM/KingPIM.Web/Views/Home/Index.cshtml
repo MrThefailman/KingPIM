@@ -2,9 +2,9 @@
 
 @{
     ViewBag.Title = "Login";
- }
+}
 
-    @*Login form*@
+@*Login form*@
 <div class="container">
     <form asp-action="Index" asp-controller="Account" method="post" class="col s12">
 
@@ -21,7 +21,7 @@
                 <label asp-for="UserName" for="icon_prefix">Email</label>
             </div>
         </div>
-                
+
         <div class="row">
             <div class="input-field col s6">
                 <i class="material-icons prefix">vpn_key</i>
@@ -29,7 +29,7 @@
                 <label asp-for="Password" for="icon_vpn_key">Password</label>
             </div>
         </div>
-                
+
         <div class="row">
             <button class="waves-effect btn btn-large green" type="submit">
                 Login
@@ -38,12 +38,12 @@
         </div>
 
     </form>
-    <form>
-        <div class="row">
-            <button class="btn-flat waves-effect btn-large col offset-s2">
-                Forgot password
-            </button>
-        </div>
-        
-    </form>
+    <div class="row">
+        <a href="Home/ForgotPassword" class="btn-flat waves-effect btn-large col offset-s2">
+            Forgot password?
+        </a>
+    </div>
+    <div class="row">
+        <p>@ViewBag.HomeMessage</p>
+    </div>
 </div>
