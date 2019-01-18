@@ -23,6 +23,7 @@ namespace KingPIM.Data
         public DbSet<ProductAttribute> ProductAttributes { get; set; }
         public DbSet<ProductAttributeValue> ProductAttributeValues { get; set; }
         public DbSet<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
+        public DbSet<PreDifinedOptions> preDifinedOptions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -56,18 +56,13 @@ namespace KingPIM.Web
                 .AddDefaultTokenProviders();
 
             services.AddTransient<ICategoryRepository, CategoryRepository>();
-
             services.AddTransient<ISubcategoryRepository, SubcategoryRepository>();
-
             services.AddTransient<IProductRepository, ProductRepository>();
-
             services.AddTransient<IProductAttributeRepository, ProductAttributeRepository>();
-
             services.AddTransient<IAttributeGroupRepository, AttributeGroupRepository>();
-
             services.AddTransient<ISubcategoryAttributeGroup, SubcategoryAttributeGroupRepository>();
-
             services.AddTransient<IProductAttributeValueRepository, ProductAttributeValueRepository>();
+            services.AddTransient<ICustomAttributeGroupOptionsRepository, CustomAttributeGroupOptionsRepository>();
 
             services.AddTransient<PasswordService>();
             

@@ -1,0 +1,55 @@
+﻿@model MainPageViewModel
+
+<div id="CustomAttribute" class="modal">
+    <div class="modal-content">
+        <h4 class="center">Create custom attributegroup</h4>
+        <div class="col s10">
+            <div class="row">
+                <div class="col s10">
+                    <div class="row">
+                        <div class="input-field col s8">
+                            <i class="material-icons prefix">library_books</i>
+                            <input id="PreDefinedName" type="text" class="validate" />
+                            <label for="PreDefinedName">Attribute name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col 6">
+                            <input id="PreDefinedOptionName" type="text" />
+                            <label for="PreDefinedOptionName">Custom option</label>
+                        </div>
+                        <button id="AddCustomAttributeOption" class="btn waves-effect col s2">
+                            Add
+                            <i class="material-icons right">add</i>
+                        </button>
+                    </div>
+                    @* Chips end up here *@
+                    <div id="predefinedOptions-container" class="col s8"></div>
+                </div>
+            </div>
+        </div>
+        @* Custom attributegroup chip *@
+        <div class="col s2">
+            <div id="customPredefinedAttributeGroupContainer"></div>
+        </div>
+        <a id="createCustomAttributeGroup" class="waves-effect btn">
+            Create custom attributegroup
+            <i class="material-icons right">send</i>
+        </a>
+    </div>
+    <div class="modal-footer">
+        <div class="right">
+            <a class="modal-close waves-effect btn grey">
+                Cancel
+                <i class="material-icons right">cancel</i>
+            </a>
+            <form asp-controller="CustomAttributeGroup" asp-action="Add">
+                <input asp-for="AttributeName" id="PredefinedAttributeGroup" type="hidden" />
+                <button id="saveCustomAttributeGroup" class="modal-close waves-effect btn green" type="submit">
+                    Save and exit
+                    <i class="material-icons right">playlist_add_check</i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -12,6 +12,7 @@ namespace KingPIM.Repositories
         IEnumerable<ProductAttribute> GetProductAttributes();
 
         void CreateProductAttribute(MainPageViewModel pa, int NewId);
+        int CreateProductAttributeWithCustomOptions(MainPageViewModel pa);
 
         ProductAttribute DeleteProductAttribute(int productAttributeId);
 

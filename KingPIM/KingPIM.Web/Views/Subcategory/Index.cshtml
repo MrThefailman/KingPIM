@@ -26,6 +26,8 @@
                     <tr>
                         <th>Subcategory</th>
                         <th>Published</th>
+                        <th>Added</th>
+                        <th>Updated</th>
                         <th>Version</th>
                         <th></th>
                     </tr>
@@ -78,6 +80,8 @@
 
 
                             </td>
+                            <td>@s.AddedDate.ToString("yyyy-MM-dd")</td>
+                            <td>@s.UpdatedDate.ToString("yyyy-MM-dd")</td>
 
                             <td>@s.Version</td>
                             <td>
@@ -114,5 +118,8 @@
 
     @*Create attributegroup modal*@
     <partial name="CreateAttributeGroupModal" />
+
+    @* Create custom attributes *@
+    <partial name="CreateCustomAttribute" />
 
 </div>

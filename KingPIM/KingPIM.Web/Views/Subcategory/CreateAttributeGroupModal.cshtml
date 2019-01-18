@@ -23,13 +23,25 @@
                     <div class="col s8">
                         <div class="input-field pin-top">
                             <select asp-for="Type" id="attributeType-select" class="attrTypeSelect">
-                                <option selected disabled>chsose type</option>
+                                <option selected disabled>choose type</option>
                                 <option value="bool">Yes/no</option>
                                 <option value="string">Text</option>
                                 <option value="int">number</option>
                                 <option value="color">color</option>
                             </select>
                         </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s8">
+                        <span>Or</span>
+                        <select asp-for="CustomAttributeName" id="existingAttributes" class="browser-default">
+                            <option selected disabled>Choose existing attribute</option>
+                            @foreach (var pa in Model.ProductAttributes)
+                            {
+                                <option value="@pa.Name¤@pa.Id">@pa.Name</option>
+                            }
+                        </select>
                     </div>
                 </div>
             </div>
@@ -40,11 +52,7 @@
                     <label asp-for="AttributeGroupName" for="attribute-group-name">Name this group of attributes</label>
                 </div>
                 @*The chips will end up here*@
-                <div id="attribute-container" class="col s6">
-
-
-
-                </div>
+                <div id="attribute-container" class="col s6"></div>
             </div>
 
         </div>

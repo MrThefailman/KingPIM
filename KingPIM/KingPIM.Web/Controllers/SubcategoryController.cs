@@ -25,7 +25,15 @@ namespace KingPIM.Web.Controllers
         private IAttributeGroupRepository attributeGroupRepo;
         // Get access to SubcategoryAttributegroupRepo
         private ISubcategoryAttributeGroup subcategoryAttributeGroupRepo;
-        public SubcategoryController(ICategoryRepository categoryRepository, ISubcategoryRepository subcategoryRepository, IProductRepository productRepository, IProductAttributeRepository productAttributeRepository, IAttributeGroupRepository attributeGroupRepository, ISubcategoryAttributeGroup subcategoryAttributeGroupRepository)
+        // Get access to CustomAttributegroupRepo
+        private ICustomAttributeGroupOptionsRepository customAttributeGroupRepo;
+        public SubcategoryController(ICategoryRepository categoryRepository, 
+            ISubcategoryRepository subcategoryRepository, 
+            IProductRepository productRepository, 
+            IProductAttributeRepository productAttributeRepository, 
+            IAttributeGroupRepository attributeGroupRepository, 
+            ISubcategoryAttributeGroup subcategoryAttributeGroupRepository,
+            ICustomAttributeGroupOptionsRepository customAttributeGroupRepository)
         {
             categoryRepo = categoryRepository;
             subcategoryRepo = subcategoryRepository;
@@ -33,6 +41,7 @@ namespace KingPIM.Web.Controllers
             productAttributeRepo = productAttributeRepository;
             attributeGroupRepo = attributeGroupRepository;
             subcategoryAttributeGroupRepo = subcategoryAttributeGroupRepository;
+            customAttributeGroupRepo = customAttributeGroupRepository;
         }
 
         // Get all
@@ -43,6 +52,7 @@ namespace KingPIM.Web.Controllers
             var products = productRepo.GetProducts();
             var productAttributes = productAttributeRepo.GetProductAttributes();
             var attributeGroups = attributeGroupRepo.GetAttributeGroups();
+            var customeAttributegroups = customAttributeGroupRepo.GetPreDifinedOptions();
             var vm = new MainPageViewModel
             {
                 Categories = categories,
@@ -74,8 +84,11 @@ namespace KingPIM.Web.Controllers
 
                 subcategoryAttributeGroupRepo.CreateSubcategoryAttributeGroup(AttrGroupId, SubCatId);
             }
-            subcategoryRepo.CreateSubcategory(vm);
-
+            //if (vm.AttributeGroupName != null && vm.Type == null)
+            //{
+            //    var SubCatId = subcategoryRepo.CreateSubcategory(vm);
+            //    subcategoryRepo.LinkCustomAttributeGroup(vm, SubCatId);
+            //}
             return RedirectToAction("Index");
         }
 

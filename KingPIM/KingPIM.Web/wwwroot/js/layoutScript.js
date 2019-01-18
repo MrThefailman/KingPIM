@@ -153,6 +153,27 @@
         );
     });
 
+    var existingAttributesSelect = $('#existingAttributes');
+    EASInstance = M.FormSelect.init(existingAttributesSelect);
+
+    $('select').formSelect();
+
+    // Choose existing attributes.
+    $('#existingAttributes').change((x) => {
+        //var customAttribute = EASInstance[0].getSelectedValues();
+        var customAttribute = existingAttributesSelect.find(':selected').val();
+
+        console.log(customAttribute);
+        var splitted = customAttribute.split('¤');
+        customAttributeName = splitted[0];
+        customAttributeOptions = splitted[1];
+        $('#attribute-container').append(
+            // TODO: make it work like Create attribute function
+            '<div class="chip"><span class="value" data-value="' + customAttributeOptions + '">'
+             + customAttributeName
+             + '</span><i class="material-icons close">close</i><div>'
+        );
+    });
 
     // Create attribute function
     $('button#create-attribute-button').click(function () {
@@ -168,20 +189,15 @@
 
         $('#create-attribute-name').val('');
     });
-
-
+    
     // Save attributes function
     $('#save-attributes').click(function () {
 
         $('#sub-attribute-container').empty();
 
         var test = $('#attribute-container').children();
-
-        //var sendToSubcategory = $('#attribute-container').children().appendTo('#sub-attribute-container');
-
+        
         var attributeGroupName = $('#attribute-group-name').val();
-
-        //var test = $('#sub-attribute-container').children();
 
         var attrArray = [];
 
@@ -232,6 +248,53 @@
 
         $('#AttrGroup-attribute-name').val('');
         attribute - container;
+    });
+
+    var customAttributeModal = $('#CustomAttribute');
+    var CAMInstances = M.Modal.init(customAttributeModal/*, options*/);
+
+    // Create custom attribute Option
+    var customAttributeOption = $('#AddCustomAttributeOption');
+    customAttributeOption.click(function () {
+        var attributename = $('#PreDefinedOptionName').val();
+        $('#predefinedOptions-container').append(
+            `<div class="chip"><span class="custom">${attributename}</span><i class="material-icons close">close</i></div>`
+        );
+        $('#PreDefinedOptionName').val('');
+    });
+
+    $('#createCustomAttributeGroup').click(function () {
+
+        $('#customPredefinedAttributeGroupContainer').empty();
+
+        var PredefinedName = $('#PreDefinedName').val();
+        var PredefinedOptions = $('#predefinedOptions-container').children();
+
+        var customArray = [];
+
+        $.each(PredefinedOptions, function (i, option) {
+            
+            var customOption = $(option).find('span.custom').text();
+
+            customArray.push(customOption);
+        });
+
+        var stringValue = customArray.join('|');
+
+        $('#PredefinedAttributeGroup').attr('value', `${PredefinedName}%${stringValue}`);
+
+        $('#customPredefinedAttributeGroupContainer').append(
+            `<div class="chip"><span class="custom" data-value="${stringValue}">${PredefinedName}</span><i class="material-icons close">close</i></div>`
+        );
+
+        $('#predefinedOptions-container').empty();
+        $('#PreDefinedOptionName').val('');
+        $('#PreDefinedName').val('');
+    });
+
+    $('#saveCustomAttributeGroup').click(function () {
+
+        $('#predefinedOptions-container').empty();
     });
 
 });

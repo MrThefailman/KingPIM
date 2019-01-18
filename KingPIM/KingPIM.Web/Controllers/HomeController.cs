@@ -35,7 +35,7 @@ namespace KingPIM.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword()
         {
-            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             var userVm = new AccountViewModel
             {
@@ -52,7 +52,7 @@ namespace KingPIM.Web.Controllers
             {
                 return View();
             }
-            var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
             string code = await _userManager.GeneratePasswordResetTokenAsync(user);
 

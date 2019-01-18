@@ -10,22 +10,16 @@ namespace KingPIM.Models.ViewModels
     {
         // To read all the categories
         public IEnumerable<Category> Categories { get; set; }
-
         // To read all the subcategories
         public IEnumerable<Subcategory> Subcategories { get; set; }
-
         // To read all products
         public IEnumerable<Product> Products { get; set; }
-
         // To read attribute groups
         public IEnumerable<AttributeGroup> AttributeGroups { get; set; }
-
         // To read product attributes
         public IEnumerable<ProductAttribute> ProductAttributes { get; set; }
-
         // To read subcategory attributegroups
         public IEnumerable<SubcategoryAttributeGroup> SubcategoryAttributeGroups { get; set; }
-
         // To read productattribute values
         public IEnumerable<ProductAttributeValue> ProductAttributeValues { get; set; }
         
@@ -61,7 +55,8 @@ namespace KingPIM.Models.ViewModels
         
         public string AttributeName { get; set; }
 
-        public string Value { get; set; }
+        public string CustomAttributeName { get; set; }
 
+        public string Value { get; set; }
     }
 }

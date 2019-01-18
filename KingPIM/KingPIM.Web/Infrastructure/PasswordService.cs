@@ -17,14 +17,6 @@ namespace KingPIM.Web.Infrastructure
             ctx = context;
             _userManager = usermanager;
         }
-
-        //public async string ForgotPasswordAsync(AccountViewModel vm)
-        //{
-            
-
-        //    return user;
-        //}
-
         public async void ChangePasswordAsync(AccountViewModel vm)
         {
             IdentityUser user = await _userManager.FindByEmailAsync(vm.Email);

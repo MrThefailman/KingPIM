@@ -40,6 +40,14 @@
                 </a>
             </li>
         }
+        @if(ViewBag.Title == "Subcategories")
+        {
+            <li>
+                <a href="#CustomAttribute" class="btn waves-effect red accent-3 center modal-trigger">
+                    Create custom attributes
+                </a>
+            </li>
+        }
 
 
         @foreach (var c in Model.Categories)

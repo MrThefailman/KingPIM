@@ -4,14 +4,16 @@ using KingPIM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KingPIM.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190114092843_updated_Predefines")]
+    partial class updated_Predefines
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,6 +57,19 @@ namespace KingPIM.Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("KingPIM.Models.Models.PreDefine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreDefine");
+                });
+
             modelBuilder.Entity("KingPIM.Models.Models.PreDifinedOptions", b =>
                 {
                     b.Property<int>("Id")
@@ -63,11 +78,11 @@ namespace KingPIM.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("ProductAttributeId");
+                    b.Property<int?>("PreDefineId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductAttributeId");
+                    b.HasIndex("PreDefineId");
 
                     b.ToTable("preDifinedOptions");
                 });
@@ -120,19 +135,23 @@ namespace KingPIM.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AttributeGroupId");
+                    b.Property<int>("AttributeGroupId");
 
                     b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("PreDifinedOptionsId");
+                    b.Property<int?>("PreDefinedId");
+
+                    b.Property<int?>("PreDifinedId");
 
                     b.Property<string>("Type");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AttributeGroupId");
+
+                    b.HasIndex("PreDefinedId");
 
                     b.ToTable("ProductAttributes");
                 });
@@ -340,9 +359,9 @@ namespace KingPIM.Data.Migrations
 
             modelBuilder.Entity("KingPIM.Models.Models.PreDifinedOptions", b =>
                 {
-                    b.HasOne("KingPIM.Models.ProductAttribute", "ProductAttribute")
-                        .WithMany("PreDeifinedOptions")
-                        .HasForeignKey("ProductAttributeId");
+                    b.HasOne("KingPIM.Models.Models.PreDefine", "PreDefine")
+                        .WithMany("PreDifinedOptions")
+                        .HasForeignKey("PreDefineId");
                 });
 
             modelBuilder.Entity("KingPIM.Models.Models.SubcategoryAttributeGroup", b =>
@@ -370,7 +389,12 @@ namespace KingPIM.Data.Migrations
                 {
                     b.HasOne("KingPIM.Models.AttributeGroup", "AttributeGroup")
                         .WithMany("ProductAttributes")
-                        .HasForeignKey("AttributeGroupId");
+                        .HasForeignKey("AttributeGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("KingPIM.Models.Models.PreDefine", "PreDefined")
+                        .WithMany()
+                        .HasForeignKey("PreDefinedId");
                 });
 
             modelBuilder.Entity("KingPIM.Models.ProductAttributeValue", b =>
