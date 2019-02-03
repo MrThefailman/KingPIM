@@ -43,25 +43,47 @@ namespace KingPIM.Repositories
                     var AttrName = NameType[0].ToString();
                     var AttrType = NameType[1].ToString();
 
-                    if(int.TryParse(AttrType, out int AttrTypeIsInt))
+                    // If attribute is custom
+                    if (int.TryParse(AttrType, out int AttrTypeIsInt))
                     {
                         ProductAttribute thisAttr = ctx.ProductAttributes.Find(AttrTypeIsInt);
-
-                        if(!ctx.ProductAttributes.Any(x => x.Id == thisAttr.Id))
+                        
+                        // If database contain this attribute use that
+                        if (thisAttr.AttributeGroupId == null)
                         {
-                            var newCustomAttr = new PreDifinedOptions
-                            {
-                                Name = AttrName,
-                                ProductAttributeId = AttrGroupId
-                            };
-                            ctx.preDifinedOptions.Add(newCustomAttr);
+                            //var newCustomAttr = new PreDifinedOptions
+                            //{
+                            //    Name = AttrName,
+                            //    ProductAttributeId = thisAttr.Id
+                            //};
+                            //ctx.preDifinedOptions.Add(newCustomAttr);
+                            thisAttr.AttributeGroupId = AttrGroupId;
                             ctx.SaveChanges();
                         }
                         else
                         {
-                            // TODO: Continue here
-                            thisAttrGroup = AttrGroupId;
+                            // Get all custom options with attributeId == thisAttr.Id
+                            var ctxCustomOptions = ctx.preDifinedOptions.Where(x => x.ProductAttributeId == thisAttr.Id);
+
+                            var newCustomAttr = new ProductAttribute
+                            {
+                                Name = thisAttr.Name,
+                                Description = thisAttr.Description
+                            };
+                            ctx.Add(newCustomAttr);
                             ctx.SaveChanges();
+
+                            foreach(var option in ctxCustomOptions)
+                            {
+                                var newOption = new PreDifinedOptions
+                                {
+                                    Name = option.Name,
+                                    ProductAttributeId = newCustomAttr.Id
+                                };
+                                ctx.Add(newOption);
+                                // Patrik, varför kan den inte köras igen?
+                                ctx.SaveChanges();
+                            }
                         }
                         //ctx.ProductAttributes.Add(newProdAttr);
                         ctx.SaveChanges();

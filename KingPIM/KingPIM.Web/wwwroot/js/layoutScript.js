@@ -156,7 +156,7 @@
     var existingAttributesSelect = $('#existingAttributes');
     EASInstance = M.FormSelect.init(existingAttributesSelect);
 
-    $('select').formSelect();
+    //$('select').FormSelect();
 
     // Choose existing attributes.
     $('#existingAttributes').change((x) => {
@@ -251,7 +251,7 @@
     });
 
     var customAttributeModal = $('#CustomAttribute');
-    var CAMInstances = M.Modal.init(customAttributeModal/*, options*/);
+    var CostumAMInstances = M.Modal.init(customAttributeModal/*, options*/);
 
     // Create custom attribute Option
     var customAttributeOption = $('#AddCustomAttributeOption');

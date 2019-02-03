@@ -12,6 +12,5 @@ namespace KingPIM.Models
         public virtual AttributeGroup AttributeGroup { get; set; }
         public int? AttributeGroupId { get; set; }
         public virtual List<PreDifinedOptions> PreDeifinedOptions { get; set; }
-        public int? PreDifinedOptionsId { get; set; }
     }
 }
