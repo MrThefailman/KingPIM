@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <None Include="compilerconfig.json" />
-    <None Include="wwwroot\js\layoutScript.js" />
   </ItemGroup>
 
   <ItemGroup>

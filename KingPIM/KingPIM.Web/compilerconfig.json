@@ -2,5 +2,13 @@
   {
     "outputFile": "wwwroot/css/Style.css",
     "inputFile": "wwwroot/css/Style.scss"
+  },
+  {
+    "outputFile": "wwwroot/js/accountLayout.es5.js",
+    "inputFile": "wwwroot/js/accountLayout.js"
+  },
+  {
+    "outputFile": "wwwroot/js/layoutScript.es5.js",
+    "inputFile": "wwwroot/js/layoutScript.js"
   }
 ]

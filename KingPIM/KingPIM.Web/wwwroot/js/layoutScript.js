@@ -170,8 +170,8 @@
         $('#attribute-container').append(
             // TODO: make it work like Create attribute function
             '<div class="chip"><span class="value" data-value="' + customAttributeOptions + '">'
-             + customAttributeName
-             + '</span><i class="material-icons close">close</i><div>'
+            + customAttributeName
+            + '</span><i class="material-icons close">close</i><div>'
         );
     });
 
@@ -189,14 +189,14 @@
 
         $('#create-attribute-name').val('');
     });
-    
+
     // Save attributes function
     $('#save-attributes').click(function () {
 
         $('#sub-attribute-container').empty();
 
         var test = $('#attribute-container').children();
-        
+
         var attributeGroupName = $('#attribute-group-name').val();
 
         var attrArray = [];
@@ -273,7 +273,7 @@
         var customArray = [];
 
         $.each(PredefinedOptions, function (i, option) {
-            
+
             var customOption = $(option).find('span.custom').text();
 
             customArray.push(customOption);
