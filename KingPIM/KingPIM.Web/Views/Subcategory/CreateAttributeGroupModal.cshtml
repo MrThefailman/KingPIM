@@ -37,6 +37,7 @@
                         <span>Or</span>
                         <select asp-for="CustomAttributeName" id="existingAttributes" class="browser-default">
                             <option selected disabled>Choose existing attribute</option>
+                            @*@{ var AddedAttributes = new List<ProductAttribute>(); }*@
                             @foreach (var pa in Model.ProductAttributes)
                             {
                                 <option value="@pa.Name¤@pa.Id">@pa.Name</option>

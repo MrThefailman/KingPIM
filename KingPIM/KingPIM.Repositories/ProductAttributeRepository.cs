@@ -21,7 +21,13 @@ namespace KingPIM.Repositories
         public IEnumerable<ProductAttribute> ProductAttributes => ctx.ProductAttributes.Include(x => x.PreDeifinedOptions);
         public IEnumerable<ProductAttribute> GetProductAttributes()
         {
-            return ProductAttributes;
+            var attrs = ProductAttributes;
+            foreach (var a in attrs)
+            {
+                var pres = ctx.preDifinedOptions.Where(x => x.ProductAttributeId.Equals(a.Id));
+                a.PreDeifinedOptions = pres.ToList();
+            }
+            return attrs;
         }
 
         public void CreateProductAttribute(MainPageViewModel pa, int AttrGroupId)
@@ -51,12 +57,6 @@ namespace KingPIM.Repositories
                         // If database contain this attribute use that
                         if (thisAttr.AttributeGroupId == null)
                         {
-                            //var newCustomAttr = new PreDifinedOptions
-                            //{
-                            //    Name = AttrName,
-                            //    ProductAttributeId = thisAttr.Id
-                            //};
-                            //ctx.preDifinedOptions.Add(newCustomAttr);
                             thisAttr.AttributeGroupId = AttrGroupId;
                             ctx.SaveChanges();
                         }
@@ -71,7 +71,6 @@ namespace KingPIM.Repositories
                                 Description = thisAttr.Description
                             };
                             ctx.Add(newCustomAttr);
-                            ctx.SaveChanges();
 
                             foreach(var option in ctxCustomOptions)
                             {
@@ -82,7 +81,6 @@ namespace KingPIM.Repositories
                                 };
                                 ctx.Add(newOption);
                                 // Patrik, varför kan den inte köras igen?
-                                ctx.SaveChanges();
                             }
                         }
                         //ctx.ProductAttributes.Add(newProdAttr);

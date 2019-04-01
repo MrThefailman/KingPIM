@@ -115,23 +115,34 @@
                                             if (attrGroup.SubcategoryId == p.SubcategoryId)
                                             {
                                                 @*Loops all attributes in the attributeGroup*@
-                                                foreach (var attr in attrGroup.AttributeGroup.ProductAttributes)
-                                                {
-                                                    var prodAttrValueRow = Model.ProductAttributeValues.FirstOrDefault(x => x.ProductAttribute.Id.Equals(attr.Id) && x.ProductId.Equals(p.Id));
-                                                    var prodAttrValueRowValue = prodAttrValueRow?.Value;
+                                        foreach (var attr in attrGroup.AttributeGroup.ProductAttributes)
+                                        {
+                                            var prodAttrValueRow = Model.ProductAttributeValues.FirstOrDefault(x => x.ProductAttribute.Id.Equals(attr.Id) && x.ProductId.Equals(p.Id));
+                                            var prodAttrValueRowValue = prodAttrValueRow?.Value;
 
-                                                    if (attr.Type == null && attr.PreDeifinedOptions != null)
-                                                    {
-                                                        <form asp-action="UpdateCustomAttributeValue" asp-controller="Product" method="post">
+                                            if (attr.Type == null && attr.PreDeifinedOptions != null)
+                                            {
+                                                var values = Model.ProductAttributeValues.Where(x => x.ProductId == p.Id && x.ProductAttributeId == attr.Id);
+
+                                                        <form asp-action="UpdateAttributeValue" asp-controller="Product" method="post">
                                                             <input asp-for="ProductAttributeId" type="hidden" value="@attr.Id" />
                                                             <input asp-for="ProductId" type="hidden" value="@p.Id" />
-                                                            <select class="browser-default">
+                                                            <select asp-for="Value" class="browser-default">
                                                                 <option selected disabled>Choose @attr.Name</option>
-                                                                @foreach(var option in attr.PreDeifinedOptions)
+                                                                @foreach (var option in attr.PreDeifinedOptions)
                                                                 {
                                                                     <option>@option.Name</option>
                                                                 }
                                                             </select>
+                                                            @foreach(var value in values)
+                                                            {
+                                                                <span>Value: @value.Value</span>
+                                                            }
+                                                            <div class="col s4">
+                                                                <button class="btn waves-effect" type="submit">
+                                                                    Save
+                                                                </button>
+                                                            </div>
                                                         </form>
                                                     }
                                                     else

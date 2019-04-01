@@ -84,11 +84,6 @@ namespace KingPIM.Web.Controllers
 
                 subcategoryAttributeGroupRepo.CreateSubcategoryAttributeGroup(AttrGroupId, SubCatId);
             }
-            //if (vm.AttributeGroupName != null && vm.Type == null)
-            //{
-            //    var SubCatId = subcategoryRepo.CreateSubcategory(vm);
-            //    subcategoryRepo.LinkCustomAttributeGroup(vm, SubCatId);
-            //}
             return RedirectToAction("Index");
         }
 

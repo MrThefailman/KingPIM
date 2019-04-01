@@ -47,6 +47,7 @@ namespace KingPIM.Web.Controllers
             var AttrGroup = attrGroupRepo.GetAttributeGroups();
             var subAttrGroups = subAttrGroupRepo.GetSubcategoryAttributeGroups();
             var prodAttrValue = prodAttrValueRepo.GetProductAttributeValues();
+            
 
             var vm = new MainPageViewModel
             {
